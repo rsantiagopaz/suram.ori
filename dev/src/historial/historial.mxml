@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+<mx:Metadata>
+	[Event(name="eveModulosHttpsResult")]
+	[Event(name="SelectPrincipal")]
+	[Event(name="SelectConsulta")]
+</mx:Metadata>
+	<mx:Script source="historial_as.as" />
+		        
+	<mx:Panel title="Histórico del Paciente">
+		<mx:AdvancedDataGrid id="dtgHistorial"  width="1000" height="390" wordWrap="true" variableRowHeight="true" 
+			defaultLeafIcon="@Embed(source='../img/nodo_dato.png')"
+			folderOpenIcon="@Embed(source='../img/nodo_arbol.png')"
+        	folderClosedIcon="@Embed(source='../img/nodo_arbol.png')">
+		<mx:dataProvider>
+	    	<mx:HierarchicalData source="{_xmlIngresos2}"/>
+	    </mx:dataProvider>
+        <mx:columns>
+            <mx:AdvancedDataGridColumn dataField="@fecha" 
+                headerText="Fecha" width="110"/>
+            <mx:AdvancedDataGridColumn dataField="@id_nivel"
+                headerText="Nivel" width="80" textAlign="center"/>
+            <mx:AdvancedDataGridColumn dataField="@establecimiento" 
+                headerText="Establecimiento" width="200"/>
+            <mx:AdvancedDataGridColumn dataField="@servicio" 
+                headerText="Servicio" width="140"/>
+            <mx:AdvancedDataGridColumn dataField="@diagnostico" 
+                headerText="Diagnóstico Principal" width="180"/>
+            <mx:AdvancedDataGridColumn dataField="@fecha_movimiento_ingreso" 
+                headerText="Fecha Ingreso" width="110"/>
+            <mx:AdvancedDataGridColumn dataField="@fecha_egreso" 
+                headerText="Fecha Egreso" width="110"/>
+            <mx:AdvancedDataGridColumn dataField="" 
+                headerText="Detalle" width="70"/>            
+        </mx:columns>
+        <mx:rendererProviders>
+        <mx:AdvancedDataGridRendererProvider
+            columnIndex="7"
+            depth="2"
+            columnSpan="1" 
+            renderer="componentes.ButtonRenderer"/>
+    	</mx:rendererProviders>
+		</mx:AdvancedDataGrid>
+		<mx:ControlBar horizontalAlign="center">
+			<mx:Button label="Cerrar" id="btnClose"  icon="@Embed(source='../img/close.png')"/>
+		</mx:ControlBar>
+	</mx:Panel>	
+</mx:Module>

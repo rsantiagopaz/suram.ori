@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" 
+	xmlns:ns1="prescripciones.*" 
+	xmlns:ns2="indicar_practica.*"
+	xmlns:ns4="datos_consulta.*"
+ 	xmlns:ns5="datospersonales.*" 
+ 	xmlns:ns6="antecedentes.*" 
+ 	xmlns:ns7="vacunacion.*"
+ 	xmlns:ns8="historial.*"
+ 	xmlns:ns9="derivaciones.*"
+ 	xmlns:ns10="resultados_practicas.*">
+	<mx:Metadata>
+		[Event(name="eveModulosHttpsResult")]
+		[Event(name="SelectPrincipal")]
+		[Event(name="ViewHistorial")]
+	</mx:Metadata>
+	<mx:Script source="consulta_as.as" />
+	<mx:TabNavigator id="consultaTabs" width="920" height="463" creationPolicy="all">
+		<mx:VBox id="viewPersonal" label="Datos Personales" width="100%" height="100%">
+			<ns5:datospersonales id="ModDatosPersonales"  ViewHistorial="fncViewHistorial()" />
+		</mx:VBox>
+		<mx:VBox label="Antecedentes" width="100%" height="100%">
+			<ns6:antecedentes id="ModAntecedentes" />
+		</mx:VBox>
+		<mx:VBox label="Datos Consulta" width="100%" height="100%">
+			<ns4:datos_consulta id="ModDatosConsulta" />
+		</mx:VBox>
+		<mx:VBox label="Prescripciones" width="100%" height="100%" horizontalAlign="center">
+			<ns1:prescripciones id="ModPrescripciones" />
+		</mx:VBox>
+		<mx:VBox label="Practicas y Procedimientos" width="100%" height="100%">
+			<ns2:indicar_practicas id="ModIndicarPracticas" eveAgregarPracticaResultado="fncAgregarPracticaResultado()" eveEliminarPracticaResultado="fncEliminarPracticaResultado()" />
+		</mx:VBox>
+		<mx:VBox label="Cargar Resultados" width="100%" height="100%">
+			<ns10:resultados_practicas id="ModResultadosPracticas" eveGuardarPracticaResultado="fncGuardarPracticaResultado()" />
+		</mx:VBox>
+		<mx:VBox label="Derivaciones" width="100%" height="100%">
+			<ns9:derivaciones id="ModDerivaciones" />
+		</mx:VBox>
+		<mx:VBox label="Vacunas" width="100%" height="100%">
+			<ns7:vacunacion id="ModVacunacion" />
+		</mx:VBox>
+		<!--<mx:VBox label="Planes" width="100%" height="100%">
+			<mx:Accordion width="100%" height="100%">
+				<mx:VBox label="Plan Nacer" width="100%" height="100%">
+				</mx:VBox>
+				<mx:VBox label="Remediar" width="100%" height="100%">
+				</mx:VBox>
+				<mx:VBox label="Diabetes" width="100%" height="100%">
+				</mx:VBox>
+			</mx:Accordion>
+		</mx:VBox>-->
+		<mx:VBox  label="Finalizar" width="100%" height="100%">
+		<mx:Panel id="panelFinalizarConsulta" label="Finalizar Consulta" title="Finalizar Consulta" width="100%" height="100%" layout="vertical" horizontalAlign="center">
+			<mx:Canvas width="315" height="32">
+				<mx:Label x="10" y="10" text="Paciente:" fontWeight="bold"/>
+				<mx:TextInput x="75" y="10" width="225" id="txiApenom" editable="false"/>
+			</mx:Canvas>
+			<mx:HBox height="40" verticalAlign="middle">
+				<mx:Image  source="img/vineta.png"/>
+				<mx:Label text="Antecedentes" width="200"/>	
+				<mx:Image id="imgAntecedentes" source="img/nok.png"/>
+			</mx:HBox>
+			<mx:HBox height="40" verticalAlign="middle">
+				<mx:Image source="img/vineta.png"/>
+				<mx:Label text="Completar Datos de la Consulta"  width="200"/>	
+				<mx:Image id="imgDatosConsulta" source="img/nok.png"/>
+			</mx:HBox>
+			<mx:HBox height="40" verticalAlign="middle">
+				<mx:Image  source="img/vineta.png"/>
+				<mx:Label text="Prescripciones"  width="200"/>	
+				<mx:Image id="imgPrescripciones" source="img/nok.png"/>
+			</mx:HBox>
+			<mx:HBox height="40" verticalAlign="middle">
+				<mx:Image  source="img/vineta.png"/>
+				<mx:Label text="Indicar Practicas y Estudios"  width="200"/>	
+				<mx:Image id="imgIndicarPracticas" source="img/nok.png"/>
+			</mx:HBox>
+			<mx:HBox height="40" verticalAlign="middle">
+				<mx:Image  source="img/vineta.png"/>
+				<mx:Label text="Cargar Resultados de Practicas"  width="200"/>	
+				<mx:Image id="imgCargarResultados" source="img/nok.png"/>
+			</mx:HBox>
+			<mx:HBox height="40" verticalAlign="middle">
+				<mx:Image  source="img/vineta.png"/>
+				<mx:Label text="Realizo Derivacion"  width="200"/>	
+				<mx:Image id="imgDerivacion" source="img/nok.png"/>
+			</mx:HBox>
+			<mx:HBox height="40" verticalAlign="middle">
+				<mx:Image  source="img/vineta.png"/>
+				<mx:Label text="Realizo Vacunacion"  width="200"/>	
+				<mx:Image id="imgVacunas" source="img/nok.png"/>
+			</mx:HBox>
+			<mx:ControlBar horizontalAlign="right">
+				<mx:Button label="Guardar Consulta" click="fncGuardarConsulta()"  icon="@Embed(source='../img/save.png')"/>
+				<mx:Button label="Salir" click="fncCerrar()" icon="@Embed(source='../img/close.png')" />
+			</mx:ControlBar>
+		</mx:Panel>
+		</mx:VBox>
+	</mx:TabNavigator>
+</mx:Module>

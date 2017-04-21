@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module width="100%" height="100%" xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" creationComplete="fncInit()">
+	<mx:Metadata>
+		[Event(name="eveModulosHttpsResult")]
+	</mx:Metadata>
+	<mx:Script source="derivaciones_as.as" />
+	<mx:Panel width="100%" height="100%" layout="vertical" title="Derivaciones">
+		<mx:Canvas width="315" height="36">
+			<mx:Label x="10" y="10" text="Paciente:" fontWeight="bold"/>
+			<mx:TextInput x="75" y="10" width="225" id="txiApenom" editable="false"/>
+		</mx:Canvas>
+		<mx:Form>
+			<mx:FormItem label="Tipo de Derivacion:">
+				<mx:RadioButton label="Ambulatoria" id="rbAmbulatoria"/>
+				<mx:RadioButton label="Internacion" id="rbInternacion"/>
+			</mx:FormItem>
+			<mx:FormItem label="Especialidad:">
+				<mx:ComboBox width="304" id="cmbEspecialidades" labelField="@especialidad" dataProvider="{_xmlEspecialidades.especialidad}" editable="false" enabled="{rbAmbulatoria.selected}"></mx:ComboBox>
+			</mx:FormItem>	
+		</mx:Form>
+		<mx:ControlBar horizontalAlign="right">
+			<mx:Label width="150" id="lblEstado" fontWeight="bold"/>
+			<mx:Button label="Cancelar Derivacion" id="btnCancelar" icon="@Embed(source='../img/close.png')"/>
+			<mx:Button label="Confirmar Derivacion" id="btnConfirmar" icon="@Embed(source='../img/save.png')"/>
+		</mx:ControlBar>
+	</mx:Panel>
+</mx:Module>

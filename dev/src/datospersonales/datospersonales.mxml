@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="100%" height="100%">
+	<mx:Metadata>
+		[Event(name="eveModulosHttpsResult")]
+		[Event(name="ViewHistorial")]
+	</mx:Metadata>
+	<mx:Script source="datospersonales_as.as" />
+	<mx:Panel x="0" y="0" width="100%" height="100%" layout="absolute" title="Datos del Paciente">
+		<mx:Button id="btnHistorial" click="fncVerHistorial()" icon="@Embed(source='../img/historial.png')" toolTip="Ver Historial" label="Ver Historial" x="650" y="5" />		  
+		<mx:Label x="10" y="10" text="Apellido y Nombre:"/>
+		<mx:Label x="362" y="10" text="DNI:"/>
+		<mx:Label x="362" y="48" text="Edad:"/>
+		<mx:Label x="10" y="48" text="Sexo:"/>
+		<mx:Label x="10" y="91" text="Domicilio:"/>
+		<mx:Label x="362" y="91" text="Localidad:"/>
+		<mx:TextInput x="129" y="8" width="225" id="txiApenom" editable="false"/>
+		<mx:TextInput x="432" y="8" width="94" id="txiDNI" editable="false"/>
+		<mx:TextInput x="432" y="46" width="48" id="txiEdad" editable="false"/>
+		<mx:TextInput x="129" y="46" width="86" id="txiSexo" editable="false"/>
+		<mx:TextInput x="129" y="89" width="225" id="txiDomicilio" editable="false"/>
+		<mx:TextInput x="432" y="89" width="225" id="txiLocalidad" editable="false"/>
+		<mx:Panel x="10" y="117" layout="absolute" title="Cobertura">
+			<mx:DataGrid id="gridAntecedentes" width="850" height="225" dataProvider="{_xmlCobertura.cobertura}" wordWrap="true" variableRowHeight="true">
+				<mx:columns>
+					<mx:DataGridColumn visible="false" dataField="@id_financiador"/>
+					<mx:DataGridColumn headerText="Financiador" width="200" dataField="@nombre"/>
+					<mx:DataGridColumn headerText="Código Anssal" width="150" dataField="@codigo_anssal"/>
+					<mx:DataGridColumn headerText="Descripción" width="280" dataField="@descripcion"/>						
+				</mx:columns>
+			</mx:DataGrid>
+		</mx:Panel>
+		<mx:Button id="btnImprimirHC" click="fncVerHistorial()" icon="@Embed(source='../img/print.png')" toolTip="Ver Historial" label="Imprimir HC" x="650" y="35" />
+	</mx:Panel>
+	
+</mx:Module>

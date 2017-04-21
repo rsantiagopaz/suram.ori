@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal"
+	xmlns:ns1="com.adobe.flex.extras.controls.*" xmlns:local="local.*"
+	creationComplete="fncInit(event)" xmlns:clases="clases.*">
+	<mx:Metadata>
+		[Event(name="eveModulosHttpsResult")]
+		[Event(name="EventAtenderPaciente")]
+		[Event(name="EventModificarConsulta")]
+	</mx:Metadata>
+	<mx:Script source="cola_lotes_as.as" />		
+	<mx:Panel layout="vertical" title="Cola de Espera (Carga en Lotes)" height="100%" width="100%">
+		<mx:DataGrid id="gridEspera" width="598" height="380" dataProvider="{httpEspera.lastResult.pacientes}">
+			<mx:columns>
+				<mx:DataGridColumn visible="false" dataField="@id_turno"/>
+				<mx:DataGridColumn visible="false" dataField="@id_ingreso"/>
+				<mx:DataGridColumn headerText="Fecha" width="75" dataField="@fecha_consulta"/>
+				<mx:DataGridColumn headerText="Hora" width="65" dataField="@hora_consulta"/>
+				<mx:DataGridColumn headerText="Médico" width="200" dataField="@medico"/>
+				<mx:DataGridColumn headerText="Nombre y Apellido" dataField="@persona_nombre"/>
+				<mx:DataGridColumn headerText="" width="30" visible="true"> 
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox horizontalAlign="center">	
+								<mx:Button  width="24" height="18" icon="@Embed(source='../img/ok.png')"
+									click="outerDocument.fncAtender()" toolTip="Atender Paciente"
+									/>
+							</mx:HBox>						
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>				
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:Canvas width="444" height="41">
+			<mx:Label text="Desde:" y="12"/>
+			<clases:DateFieldEs x="53" y="10" width="116" restrict="0-9/" editable="true" id="dfFechaDesdeEspera"/>
+			<mx:Label text="Hasta:" y="13" x="177"/>
+			<clases:DateFieldEs x="227" y="10" width="116" restrict="0-9/" editable="true" id="dfFechaHastaEspera"/>
+			<mx:Button x="351" y="10" label="Buscar" id="btnBuscarEspera" icon="@Embed(source='../img/search.png')"/>
+		</mx:Canvas>
+		<mx:Canvas width="447" height="75">
+			<mx:TextInput id="txtNombreEspera" width="226" x="157" y="10"/>
+			<mx:FormItem label="Nombre del Paciente:" x="10" y="10">
+			</mx:FormItem>
+			<mx:TextInput id="txtMedicoEspera" width="226" x="157" y="40"/>
+			<mx:FormItem label="Nombre del Médico:" x="10" y="44">
+			</mx:FormItem>
+		</mx:Canvas>
+	</mx:Panel>
+	<mx:Panel width="100%" height="100%" layout="vertical" title="Pacientes Ya Atendidos (Carga en Lotes)">
+		<local:RowColorDataGrid id="gridAtendidos" width="444" height="380" dataProvider="{httpAtendidos.lastResult.pacientes}" rowColorFunction="calcRowColor">
+			<local:columns>
+				<mx:DataGridColumn visible="false" dataField="@id_turno"/>
+				<mx:DataGridColumn visible="false" dataField="@id_ingreso"/>
+				<mx:DataGridColumn headerText="Fecha" width="75" dataField="@fecha_consulta"/>
+				<mx:DataGridColumn headerText="Hora" width="65" dataField="@hora_consulta"/>
+				<mx:DataGridColumn headerText="Nombre y Apellido" dataField="@persona_nombre"/>
+				<mx:DataGridColumn headerText="" width="30" visible="true"> 
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox horizontalAlign="center">	
+								<mx:Button  width="24" height="18" visible="{Boolean(data.@estado_turno=='AT')}" icon="@Embed(source='../img/change.png')"
+									click="outerDocument.fncModificarConsulta()" toolTip="Modificar Consulta"
+									/>
+							</mx:HBox>						
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>
+				<mx:DataGridColumn headerText="" width="30" visible="true"> 
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox horizontalAlign="center">	
+								<mx:Button  width="24" height="18" visible="{Boolean(data.@estado_turno=='AU')}" icon="@Embed(source='../img/edit-undo.png')"
+									click="outerDocument.fncRecuperarTurno()" toolTip="Recuperar Turno"
+									/>
+							</mx:HBox>						
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>
+			</local:columns>
+		</local:RowColorDataGrid>
+		<mx:Canvas width="444" height="41">
+			<mx:Label text="Desde:" y="12"/>
+			<clases:DateFieldEs x="53" y="10" width="116" restrict="0-9/" editable="true" id="dfFechaDesdeAtendido"/>
+			<mx:Label text="Hasta:" y="13" x="177"/>
+			<clases:DateFieldEs x="227" y="10" width="116" restrict="0-9/" editable="true" id="dfFechaHastaAtendido"/>
+			<mx:Button x="351" y="10" label="Buscar" id="btnBuscarAtendido" icon="@Embed(source='../img/search.png')"/>
+		</mx:Canvas>
+		<mx:Form>
+			<mx:FormItem label="Nombre del Paciente:">
+				<mx:TextInput id="txtNombreAtendido" width="226"/>
+			</mx:FormItem>
+		</mx:Form>
+	</mx:Panel>
+	
+	<mx:DateValidator id="validFechaDesdeEspera" 
+        source="{dfFechaDesdeEspera}" property="text" required="false" 
+        inputFormat="dd/mm/yyyy"
+        allowedFormatChars="*#~/" requiredFieldError="Este Campo es Obligatorio" 
+        wrongDayError="Ingrese un día válido para el mes" 
+        wrongMonthError="Ingrese un mes entre 1 y 12"/>
+    <mx:DateValidator id="validFechaHastaEspera" 
+        source="{dfFechaDesdeEspera}" property="text" required="false" 
+        inputFormat="dd/mm/yyyy"
+        allowedFormatChars="*#~/" requiredFieldError="Este Campo es Obligatorio" 
+        wrongDayError="Ingrese un día válido para el mes" 
+        wrongMonthError="Ingrese un mes entre 1 y 12"/>
+    <mx:DateValidator id="validFechaDesdeAtendido" 
+        source="{dfFechaDesdeAtendido}" property="text" required="false" 
+        inputFormat="dd/mm/yyyy"
+        allowedFormatChars="*#~/" requiredFieldError="Este Campo es Obligatorio" 
+        wrongDayError="Ingrese un día válido para el mes" 
+        wrongMonthError="Ingrese un mes entre 1 y 12"/>
+    <mx:DateValidator id="validFechaHastaAtendido" 
+        source="{dfFechaDesdeAtendido}" property="text" required="false" 
+        inputFormat="dd/mm/yyyy"
+        allowedFormatChars="*#~/" requiredFieldError="Este Campo es Obligatorio" 
+        wrongDayError="Ingrese un día válido para el mes" 
+        wrongMonthError="Ingrese un mes entre 1 y 12"/>
+</mx:Module>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" creationComplete="fncInit()" xmlns:ns1="com.adobe.flex.extras.controls.*" xmlns:clases="clases.*">
+	<mx:Script source="diagnostico_as.as" />
+	<mx:TitleWindow layout="horizontal" verticalAlign="middle" title="Diagnosticos">
+		<mx:Form>
+				<mx:FormItem label="Diagnostico:">
+					<ns1:AutoComplete id="acDiagnostico" filterFunction="customFilterFunction" width="380" dropdownWidth="580" />
+				</mx:FormItem>
+				<mx:FormItem label="Diagnostico Principal?">
+					<mx:HBox>
+						<mx:RadioButtonGroup id="rbDiag"></mx:RadioButtonGroup>
+							<mx:RadioButton label="Si" id="rbDiagSi" group="{rbDiag}" />
+							<mx:RadioButton label="No" id="rbDiagNo" group="{rbDiag}" selected="true"/>
+					</mx:HBox>
+				</mx:FormItem>
+			</mx:Form>
+			<mx:ControlBar horizontalAlign="center">
+				<mx:Button label="Grabar" id="btnGrabar" icon="@Embed(source='../img/save.png')"/>
+				<mx:Button label="Cancelar" id="btnCancel"  icon="@Embed(source='../img/close.png')"/>
+			</mx:ControlBar>
+	</mx:TitleWindow>
+</mx:Module>

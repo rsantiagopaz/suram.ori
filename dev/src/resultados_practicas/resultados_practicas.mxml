@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" 
+	creationComplete="fncInit()" width="100%" height="100%">
+	<mx:Metadata>
+		[Event(name="eveModulosHttpsResult")]
+		[Event(name="eveGuardarPracticaResultado")]
+	</mx:Metadata>
+	<mx:Script source="resultados_practicas_as.as" />
+	<mx:Panel layout="vertical" title="Cargar Resultado de Practicas" width="100%" height="100%">
+		<mx:Canvas width="315" height="36">
+			<mx:Label x="10" y="10" text="Paciente:" fontWeight="bold"/>
+			<mx:TextInput x="75" y="10" width="225" id="txiApenom" editable="false"/>
+		</mx:Canvas>
+		<mx:DataGrid id="gridPracticas" width="890"  height="290" variableRowHeight="true" wordWrap="true" dataProvider="{_xmlPracticas.resultado}">
+			<mx:columns>				
+				<mx:DataGridColumn headerText="Practica" dataField="@descripcion"/>
+				<mx:DataGridColumn headerText="Resultado" dataField="@resultados"/>
+				<mx:DataGridColumn headerText="" width="30" visible="true"> 
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox horizontalAlign="center">	
+								<mx:Button width="24" height="18" icon="@Embed(source='../img/add.png')"
+									click="outerDocument.fncEditarResultado()" toolTip="Cargar o Modificar Resultado"
+									/>
+							</mx:HBox>						
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>
+				<mx:DataGridColumn headerText="" width="30" visible="true"> 
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox horizontalAlign="center">	
+								<mx:Button  width="24" height="18" icon="@Embed(source='../img/del.png')"
+									click="outerDocument.fncEliminarResultado()" toolTip="Quitar Resulado"
+									/>
+							</mx:HBox>						
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:ControlBar horizontalAlign="right">
+			<mx:Label width="150" id="lblEstado" fontWeight="bold"/>
+			<mx:Button label="Cancelar Carga de Resultados" id="btnCancelar" icon="@Embed(source='../img/close.png')"/>
+			<mx:Button label="Confirmar Carga de Resultados" id="btnConfirmar" icon="@Embed(source='../img/save.png')"/>
+		</mx:ControlBar>
+	</mx:Panel>
+</mx:Module>

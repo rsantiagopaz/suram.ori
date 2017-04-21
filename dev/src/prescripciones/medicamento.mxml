@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" creationComplete="fncInit()" xmlns:ns1="com.adobe.flex.extras.controls.*" xmlns:clases="clases.*">
+	<mx:Script source="medicamento_as.as" />
+	<mx:TitleWindow layout="vertical" verticalAlign="middle" title="Prescripciones">
+		<mx:Form>
+				<mx:FormItem label="Medicamento:">
+					<ns1:AutoComplete id="acMedicamento" filterFunction="customFilterFunction" width="380" />
+				</mx:FormItem>
+				<mx:FormItem label="Posologia:">
+					<mx:TextArea id="txaPosologia" width="380"/>
+				</mx:FormItem>
+				<!--<mx:FormItem label="Fecha Prescripcion:">
+						<clases:DateFieldEs width="116" id="dfPrescripcion"/>
+				</mx:FormItem>-->
+			</mx:Form>
+			<mx:ControlBar horizontalAlign="center">
+				<mx:Button label="Grabar" id="btnGrabar" icon="@Embed(source='../img/save.png')"/>
+				<mx:Button label="Cancelar" id="btnCancel"  icon="@Embed(source='../img/close.png')"/>
+			</mx:ControlBar>
+	</mx:TitleWindow>
+	<clases:StringValidador_ES id="validPosologia" source="{txaPosologia}" property="text" required="true" />
+	<!--<clases:StringValidador_ES id="validFecha" source="{dfPrescripcion}" property="text" required="true" />-->
+</mx:Module>

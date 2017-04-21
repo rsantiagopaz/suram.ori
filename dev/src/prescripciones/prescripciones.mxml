@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" creationComplete="fncInit()" width="100%" height="100%">
+	<mx:Metadata>
+		[Event(name="eveModulosHttpsResult")]
+	</mx:Metadata>
+	<mx:Script source="prescripciones_as.as" />
+	<mx:Panel width="100%" height="100%" layout="vertical" title="Prescripciones">
+		<mx:Canvas width="315" height="36">
+			<mx:Label x="10" y="10" text="Paciente:" fontWeight="bold"/>
+			<mx:TextInput x="75" y="10" width="225" id="txiApenom" editable="false"/>
+		</mx:Canvas>
+		<mx:DataGrid id="gridPrescripciones" width="890"  height="280" variableRowHeight="true" wordWrap="true" dataProvider="{_xmlPrescripciones.prescripcion}">
+			<mx:columns>
+				<mx:DataGridColumn visible="false" dataField="@id_prescripcion"/>
+				<mx:DataGridColumn visible="false" dataField="@id_vademecum"/>
+				<mx:DataGridColumn visible="false" dataField="@id_ingreso_movimiento"/>
+				<mx:DataGridColumn width="100" headerText="Fecha" dataField="@fecha_prescripcion"/>
+				<mx:DataGridColumn width="260" headerText="Monodroga" dataField="@monodroga"/>
+				<mx:DataGridColumn width="100" headerText="Presentacion" dataField="@presentacion"/>
+				<mx:DataGridColumn width="100" headerText="Concentracion" dataField="@concentracion"/>
+				<mx:DataGridColumn width="370" headerText="Posologia" dataField="@posologia"/>
+				<mx:DataGridColumn id="edit" headerText="" width="30" visible="true"> 
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox horizontalAlign="center">	
+								<mx:Button width="24" height="18" icon="@Embed(source='../img/edit.png')"
+									click="outerDocument.fncEditarPrescripcion()" toolTip="Modificar"
+									/>
+							</mx:HBox>						
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>
+				<mx:DataGridColumn id="del" headerText="" width="30" visible="true"> 
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox horizontalAlign="center">	
+								<mx:Button  width="24" height="18" icon="@Embed(source='../img/del.png')"
+									click="outerDocument.fncEliminarPrescripcion()" toolTip="Eliminar"
+									/>
+							</mx:HBox>						
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:Button label="Nueva Prescripcion" id="btnNuevaPrescripcion" icon="@Embed(source='../img/add.png')"/>
+		<mx:ControlBar horizontalAlign="right" id="controlbar1">
+			<mx:Label width="150" id="lblEstado" fontWeight="bold"/>
+			<mx:Button label="Cancelar Prescripcion" id="btnCancelar" icon="@Embed(source='../img/close.png')"/>
+			<mx:Button label="Confirmar Prescripcion" id="btnConfirmar" icon="@Embed(source='../img/save.png')"/>
+			<mx:Button label="Imprimir Prescripción" id="btnImprimirPrescripciones" icon="@Embed(source='../img/print.png')" enabled="false"/>
+		</mx:ControlBar>
+	</mx:Panel>
+</mx:Module>

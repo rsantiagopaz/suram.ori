@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" creationComplete="fncInit()" xmlns:ns1="com.adobe.flex.extras.controls.*" xmlns:clases="clases.*">
+	<mx:Script source="resultado_as.as" />
+	<mx:TitleWindow layout="vertical" verticalAlign="middle" title="Carga de Resultados de Practicas">
+		<mx:Form>
+				<mx:FormItem label="Practica:">
+						<mx:TextInput width="370" id="txtPractica" editable="false"/>
+				</mx:FormItem>
+				<mx:FormItem label="Resultado:">
+						<mx:TextArea height="80" width="370" id="txaResultado"/>
+				</mx:FormItem>
+			</mx:Form>
+			<mx:ControlBar horizontalAlign="center">
+				<mx:Button label="Grabar" id="btnGrabar" icon="@Embed(source='../img/save.png')"/>
+				<mx:Button label="Cancelar" id="btnCancel"  icon="@Embed(source='../img/close.png')"/>
+			</mx:ControlBar>
+	</mx:TitleWindow>
+	<mx:StringValidator id="validResultado" source="{txaResultado}" property="text" required="true" />
+</mx:Module>

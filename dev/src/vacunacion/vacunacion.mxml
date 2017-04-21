@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal"
+	xmlns:ns1="com.adobe.flex.extras.controls.*" width="100%" height="100%" 
+	creationComplete="fncInit()">
+	<mx:Metadata>
+		[Event(name="eveModulosHttpsResult")]
+	</mx:Metadata>
+	<mx:Script source="vacunacion_as.as" />		
+	<mx:Panel layout="vertical" title="Vacunas" width="100%" height="100%">
+		<mx:Canvas width="315" height="36">
+			<mx:Label x="10" y="10" text="Paciente:" fontWeight="bold"/>
+			<mx:TextInput x="75" y="10" width="225" id="txiApenom" editable="false"/>
+		</mx:Canvas>
+		<mx:DataGrid id="gridVacunaciones" width="890" height="280" wordWrap="true" variableRowHeight="true" dataProvider="{_xmlVacunaciones.vacunaciones}">
+			<mx:columns>
+				<mx:DataGridColumn visible="false" dataField="@id_vacunacion"/>
+				<mx:DataGridColumn visible="false" dataField="@id_dosis"/>
+				<mx:DataGridColumn headerText="Vacuna" width="200" dataField="@nombre"/>
+				<mx:DataGridColumn headerText="Enfermedades" width="250" dataField="@enfermedades"/>
+				<mx:DataGridColumn headerText="Fecha" width="100" dataField="@fecha"/>
+				<mx:DataGridColumn id="edit" headerText="" width="30" visible="true"> 
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox horizontalAlign="center">	
+								<mx:Button  width="24" height="18" icon="@Embed(source='../img/edit.png')"
+									click="outerDocument.fncEditarVacunacion()" toolTip="Modificar"
+									/>
+							</mx:HBox>						
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>
+				<mx:DataGridColumn id="del" headerText="" width="30" visible="true">
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox horizontalAlign="center">	
+								<mx:Button  width="24" height="18" icon="@Embed(source='../img/del.png')"
+									click="outerDocument.fncEliminarVacunacion()" toolTip="Eliminar"
+									/>
+							</mx:HBox>						
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>				
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:Button id="btnNuevaVacunacion" width="5%" fontWeight="bold" textAlign="left" fontSize="10" toolTip="Agregar" height="5%" tabIndex="5" label="Nueva Vacuna">		  
+		  <mx:icon>@Embed(source='../img/add.png')</mx:icon>
+		</mx:Button>
+		<mx:ControlBar horizontalAlign="right" id="controlbar1">
+			<mx:Label width="150" id="lblEstado" fontWeight="bold"/>
+			<mx:Button label="Cancelar Vacunacion" id="btnCancelar" icon="@Embed(source='../img/close.png')"/>
+			<mx:Button label="Confirmar Vacunacion" id="btnConfirmar" icon="@Embed(source='../img/save.png')"/>
+		</mx:ControlBar>
+	</mx:Panel>
+</mx:Module>

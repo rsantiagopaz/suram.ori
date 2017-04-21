@@ -1,0 +1,145 @@
+@import url("estilosLinks.css");
+BODY {
+	SCROLLBAR-FACE-COLOR: #dee3e7;
+	FONT: 10px Verdana, Arial, Helvetica, sans-serif;
+	SCROLLBAR-HIGHLIGHT-COLOR: #ffffff;
+	SCROLLBAR-SHADOW-COLOR: #dee3e7;
+	COLOR: #000000;
+	SCROLLBAR-3DLIGHT-COLOR: #d1d7dc;
+	SCROLLBAR-ARROW-COLOR: #006699;
+	SCROLLBAR-TRACK-COLOR: #efefef;
+	SCROLLBAR-DARKSHADOW-COLOR: #98aab1;
+	background-color: #1F88C0;
+}
+TH {
+	FONT: 10px MS Sans Serif, verdana, arial, sans-serif; COLOR: #006699
+}
+.option {
+	FONT-SIZE: 10px; COLOR: #336699; FONT-FAMILY: "MS Sans Serif", verdana, arial, sans-serif
+}
+FONT {
+	FONT-SIZE: 10px; BACKGROUND: none transparent scroll repeat 0% 0%; COLOR: #000000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.bodyline {
+	BORDER-RIGHT: #98aab1 1px solid; BORDER-TOP: #98aab1 1px solid; BORDER-LEFT: #98aab1 1px solid; BORDER-BOTTOM: #98aab1 1px solid; BACKGROUND-COLOR: #ffffff
+}
+INPUT {
+	FONT-SIZE: 10px; FONT-FAMILY: "MS Sans Serif", Helvetica, sans-serif; BACKGROUND-COLOR: #efefef
+}
+TEXTAREA {
+	FONT-SIZE: 10px; FONT-FAMILY: MS Sans Serif, Helvetica, sans-serif; BACKGROUND-COLOR: #efefef
+}
+SELECT {
+	FONT-SIZE: 10px; FONT-FAMILY: "MS Sans Serif", Helvetica, sans-serif; BACKGROUND-COLOR: #efefef
+}
+.botonradio {
+	BACKGROUND-COLOR: #d1e0ef
+}
+.fondopag {
+	BACKGROUND-IMAGE: url(textura1.gif)
+}
+TD {
+	FONT: 10px Verdana, Arial, Helvetica; COLOR: #000000
+}
+.textonormal {
+	FONT-SIZE: 12px; COLOR: #000000; LINE-HEIGHT: 16px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.fondopag {
+	BACKGROUND-IMAGE: url(textura1.gif)
+}
+.textonormal {
+	FONT-SIZE: 12px; COLOR: #000000; LINE-HEIGHT: 16px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.tituloSistema {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #B5DAF0;
+	font-weight: bold;
+}
+.tituloOrganismo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #B5DAF0;
+	font-weight: bold;
+}
+.tituloArea {
+	font-family: Verdana;
+	font-size: 10px;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.tituloUsuario {
+	font-family: Verdana;
+	font-size: 9px;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.fondoMenu {
+	background-color: #1D81B6;
+}
+.fondoTituloCaja {
+	BACKGROUND-IMAGE: url(textura1.gif);
+	background-color: #1D81B6;
+	border: thin solid #006699;
+}
+.tituloCaja {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.fondoTabla {
+	BACKGROUND-IMAGE: url(textura1.gif);
+	background-color: #97D0F2;
+}
+.Errores {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #CC0000;
+	font-weight: bold;
+}
+.fondoseparadorEnFormulario {
+	background-color: #88BFEC;
+}
+.tituloSeparador {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #006699;
+	font-weight: bold;
+}
+.tituloListado {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.fondoColumna {
+	background-color: #2E8FE0;
+}
+.tituloColumna {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #B9DCFF;
+	font-weight: bold;
+}
+.fondofilapar {
+	background-color: #DCEFFA;
+}
+.fondofilaimpar {
+	background-color: #EDF7FC;
+}
+.tablaListados {
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #FFFFFF;
+	border-right-color: #FFFFFF;
+	border-bottom-color: #CCCCCC;
+	border-left-color: #CCCCCC;
+}
+.datos {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #C6ECFF;
+}

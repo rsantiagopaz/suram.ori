@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal"
+	xmlns:ns1="com.adobe.flex.extras.controls.*" xmlns:local="local.*"
+	creationComplete="fncInit(event)">
+	<mx:Metadata>
+		[Event(name="eveModulosHttpsResult")]
+		[Event(name="EventAtenderPaciente")]
+		[Event(name="EventModificarConsulta")]
+	</mx:Metadata>
+	<mx:Script source="colas_as.as" />		
+	<mx:Panel layout="vertical" title="Cola de Espera">
+		<mx:DataGrid id="gridEspera" width="398" height="380" dataProvider="{httpEspera.lastResult.pacientes}">
+			<mx:columns>
+				<mx:DataGridColumn visible="false" dataField="@id_turno"/>
+				<mx:DataGridColumn visible="false" dataField="@id_ingreso"/>
+				<mx:DataGridColumn headerText="Hora" width="65" dataField="@hora_consulta"/>
+				<mx:DataGridColumn headerText="Nombre y Apellido" dataField="@persona_nombre"/>
+				<mx:DataGridColumn headerText="" width="30" visible="true"> 
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox horizontalAlign="center">	
+								<mx:Button  width="24" height="18" icon="@Embed(source='../img/ok.png')"
+									click="outerDocument.fncAtender()" toolTip="Atender Paciente"
+									/>
+							</mx:HBox>						
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>
+				<mx:DataGridColumn headerText="" width="30" visible="true"> 
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox horizontalAlign="center">	
+								<mx:Button  width="24" height="18" icon="@Embed(source='../img/nok.png')"
+									click="outerDocument.fncAusente()" toolTip="Ausente"
+									/>
+							</mx:HBox>						
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:Form>
+			<mx:FormItem label="Nombre del Paciente:">
+				<mx:TextInput id="txtNombreEspera" width="226"/>
+			</mx:FormItem>
+		</mx:Form>
+	</mx:Panel>
+	<mx:Panel width="100%" height="100%" layout="vertical" title="Pacientes Ya Atendidos">
+		<local:RowColorDataGrid id="gridAtendidos" width="398" height="380" dataProvider="{httpAtendidos.lastResult.pacientes}" rowColorFunction="calcRowColor">
+			<local:columns>
+				<mx:DataGridColumn visible="false" dataField="@id_turno"/>
+				<mx:DataGridColumn visible="false" dataField="@id_ingreso"/>
+				<mx:DataGridColumn headerText="Hora" width="65" dataField="@hora_consulta"/>
+				<mx:DataGridColumn headerText="Nombre y Apellido" dataField="@persona_nombre"/>
+				<mx:DataGridColumn headerText="" width="30" visible="true"> 
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox horizontalAlign="center">	
+								<mx:Button  width="24" height="18" visible="{Boolean(data.@estado_turno=='AT')}" icon="@Embed(source='../img/change.png')"
+									click="outerDocument.fncModificarConsulta()" toolTip="Modificar Consulta"
+									/>
+							</mx:HBox>						
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>
+				<mx:DataGridColumn headerText="" width="30" visible="true"> 
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox horizontalAlign="center">	
+								<mx:Button  width="24" height="18" visible="{Boolean(data.@estado_turno=='AU')}" icon="@Embed(source='../img/edit-undo.png')"
+									click="outerDocument.fncRecuperarTurno()" toolTip="Recuperar Turno"
+									/>
+							</mx:HBox>						
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>
+			</local:columns>
+		</local:RowColorDataGrid>
+		<mx:Form>
+			<mx:FormItem label="Nombre del Paciente:">
+				<mx:TextInput id="txtNombreAtendido" width="226"/>
+			</mx:FormItem>
+		</mx:Form>
+	</mx:Panel>
+</mx:Module>

@@ -1,0 +1,4 @@
+A:visited{ font: 12px "MS Sans Serif", verdana, arial, sans-serif; color: #1A5897; text-decoration: none; }
+A:hover { font: normal 12px "MS Sans Serif", verdana, arial, sans-serif; color: #CC3300; text-decoration: underline; }
+A:active  { font: 12px "MS Sans Serif", verdana, arial, sans-serif; color: #1A5897; text-decoration: none;  } 
+A:link { font: 12px "MS Sans Serif", verdana, arial, sans-serif; color: #1A5897; text-decoration: underline;  } 

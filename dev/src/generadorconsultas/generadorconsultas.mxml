@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" creationComplete="fncInit()" width="890" height="500" 
+	xmlns:ns1="com.adobe.flex.extras.controls.*" xmlns:clases="clases.*">
+	<mx:Metadata>
+		[Event(name="eveModulosHttpsResult")]
+		[Event(name="SelectPrincipal")]
+	</mx:Metadata>
+	<mx:Script source="generadorconsultas_as.as" />
+	<mx:Panel width="890" height="500" layout="absolute" title="Generador de Consultas">
+		<mx:Label text="Desde:" x="0" y="12"/>
+		<clases:DateFieldEs restrict="0123456789/" x="53" y="10" id="dtfDesde" editable="true" width="100"/>
+		<mx:Panel x="0" y="68" width="870" height="356" layout="absolute" title="Incluir en el reporte">
+			<mx:CheckBox x="0" y="0" label="Cantidad de pacientes atendidos" id="chkPacientes"/>
+			<mx:CheckBox x="0" y="60" label="Cantidad de diagnósticos registrados por tipo" id="chkDiagnosticos" fontWeight="normal"/>
+			<mx:CheckBox x="0" y="30" label="Cantidad de antecedentes registrados por tipo" id="chkAntecedentes"/>
+			<mx:CheckBox x="0" y="90" label="Cantidad de prescripciones registradas por tipo" id="chkPrescripciones" fontWeight="normal"/>
+		</mx:Panel>
+		<mx:Label text="Hasta:" x="161" y="12"/>
+		<clases:DateFieldEs restrict="0123456789/" x="211" y="10" id="dtfHasta" editable="true" width="100"/>
+		<ns1:AutoComplete x="53" y="40" width="320" id="acServicio"/>
+		<mx:Label text="Servicio:" x="0" y="42"/>
+		<mx:ControlBar horizontalAlign="right" id="controlbar1">
+			<mx:Button label="Generar Reporte" id="btnGenerarReporte" icon="@Embed(source='../img/print.png')" enabled="true"/>
+			<mx:Button label="Salir" click="fncCerrar()" icon="@Embed(source='../img/close.png')" />
+		</mx:ControlBar>
+	</mx:Panel>
+	<mx:DateValidator id="validFechaDesde" 
+        source="{dtfDesde}" property="text" required="true" 
+        inputFormat="dd/mm/yyyy"
+        allowedFormatChars="*#~/" requiredFieldError="Este Campo es Obligatorio" 
+        wrongDayError="Ingrese un día válido para el mes" 
+        wrongMonthError="Ingrese un mes entre 1 y 12"/>
+    <mx:DateValidator id="validFechaHasta" 
+        source="{dtfHasta}" property="text" required="true" 
+        inputFormat="dd/mm/yyyy"
+        allowedFormatChars="*#~/" requiredFieldError="Este Campo es Obligatorio" 
+        wrongDayError="Ingrese un día válido para el mes" 
+        wrongMonthError="Ingrese un mes entre 1 y 12"/>
+</mx:Module>

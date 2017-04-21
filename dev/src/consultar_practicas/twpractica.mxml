@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" creationComplete="fncInit()" xmlns:clases="clases.*">
+	<mx:states>
+		<mx:State name="eliminar">			
+			<mx:SetProperty target="{txtProcedimiento}" name="editable" value="false"/>			
+			<mx:AddChild relativeTo="{btnCancel}" position="before">
+				<mx:Button label="Eliminar" icon="@Embed(source='../img/del.png')" id="btnEliminar"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{btnGrabar}"/>
+		</mx:State>
+	</mx:states>
+	<mx:Script source="twpractica_as.as" />
+	<mx:TitleWindow layout="vertical" verticalAlign="middle" title="Medicamento">
+		<mx:Form>
+				<mx:FormItem label="Procedimiento:">
+						<mx:TextInput width="462" id="txtProcedimiento"/>
+				</mx:FormItem>
+			</mx:Form>
+			<mx:ControlBar horizontalAlign="center">
+				<mx:Button label="Grabar" id="btnGrabar" icon="@Embed(source='../img/save.png')"/>
+				<mx:Button label="Cancelar" id="btnCancel"  icon="@Embed(source='../img/close.png')"/>
+			</mx:ControlBar>
+	</mx:TitleWindow>	
+	<clases:StringValidador_ES id="validProcedimiento" source="{txtProcedimiento}" property="text" required="true" />	
+</mx:Module>
