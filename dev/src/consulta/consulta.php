@@ -41,6 +41,42 @@ switch ($_REQUEST['rutina'])
 		$sql.="WHERE i.id_ingreso='$id_ingreso' ";
 		toXML($xml, $sql, "datosconsulta");
 		
+		
+		
+		
+		$sql = "SELECT * FROM ingresos_especialidad WHERE id_ingreso=" . $id_ingreso;
+		$rs = mysql_query($sql);
+		if (mysql_num_rows($rs) > 0) {
+			$row = mysql_fetch_object($rs);
+			
+			$nodo = new SimpleXMLElement($row->json);
+		} else {
+			$nodo = new SimpleXMLElement('<ingresos_especialidad>
+				<ingresos_especialidad 
+					antecedentes="" 
+					enfermedad="" 
+					pronostico="" 
+					indicaciones="" 
+					agudeza_od="" 
+					agudeza_oi="" 
+					refraccion_od="" 
+					refraccion_oi="" 
+					pio_od="" 
+					pio_oi="" 
+					biomi_od="" 
+					biomi_oi="" 
+					fo_od="" 
+					fo_oi="" 
+					diagnostico_od="" 
+					diagnostico_oi="" 
+				/>
+			</ingresos_especialidad>');
+		}
+		toXML_mio($xml, $nodo);
+		
+		
+		
+		
 		//para la pestaña de prescripciones		
 		$sql="SELECT p.id_prescripcion, CONCAT(monodroga, ' ',presentacion, ' ',concentracion) 'descrip', ";
 		$sql.="v.id_vademecum, p.posologia, v.monodroga, v.concentracion, v.presentacion, DATE_FORMAT(fecha_prescripcion,'%d/%m/%Y') 'fecha_prescripcion' ";
@@ -142,7 +178,16 @@ switch ($_REQUEST['rutina'])
 		$xml_derivacion = $xml_datos->datosderivacion;
 		$xml_vacunaciones = $xml_datos->vacunaciones;
 		
-		$sql = "UPDATE ingresos SET "; 
+		$xml_especialidad = $xml_datos->ingresos_especialidad;
+		
+		//$json = json_encode($xml_especialidad);
+		$json = $xml_especialidad->asXML();
+		$sql = "INSERT ingresos_especialidad SET id_ingreso='" . $xml_datosconsulta->id_ingreso . "', id_especialidad='" . $xml_especialidad->ingresos_especialidad['id_especialidad'] . "', json='" . $json . "'";
+		$sql.= " ON DUPLICATE KEY UPDATE id_especialidad='" . $xml_especialidad->ingresos_especialidad['id_especialidad'] . "', json='" . $json . "'";
+		mysql_query($sql);
+
+		
+		$sql = "UPDATE ingresos SET ";
 		$sql.= XMLtoSQL($xml_datosconsulta,array('id_ingreso'));
 		if ($xml_derivacion){$sql.= ", ". XMLtoSQL($xml_derivacion);}
 		$sql.=", fecha_consulta_ingreso=NOW() WHERE id_ingreso='".$xml_datosconsulta->id_ingreso."'";
@@ -270,6 +315,16 @@ switch ($_REQUEST['rutina'])
 				
 		header('Content-Type: text/xml');
 		echo $xml->asXML();
+		break;
+	}
+	
+	
+	case 'leer_especialidad':{
+		$sql="SELECT id_especialidad FROM _servicios_especialidades WHERE id_servicio=" . $_REQUEST["id_servicio"];
+		$rs = mysql_query($sql);
+		$row = mysql_fetch_object($rs);
+		
+		echo $row->id_especialidad;
 		break;
 	}
 }

@@ -111,7 +111,8 @@ if(mysql_errno()>0)
 	 // print $_auditoria_query;
 	 if ( !(@mysql_select_db("sursde", $_link_auditoria)) )
 	  {
-	   if ( !(@mysql_select_db("salud1", $_link_auditoria)) )
+	   //if ( !(@mysql_select_db("salud1", $_link_auditoria)) )
+	   if ( !(@mysql_select_db("ramon_prueba_suram", $_link_auditoria)) )
 		{
 		 // no pudo seleccionr la bd
 	     $_mysql_errno = mysql_errno(); 

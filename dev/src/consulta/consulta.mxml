@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" 
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" creationComplete="Module_creationComplete()" 
 	xmlns:ns1="prescripciones.*" 
 	xmlns:ns2="indicar_practica.*"
 	xmlns:ns4="datos_consulta.*"
@@ -56,40 +56,45 @@
 				<mx:Label x="10" y="10" text="Paciente:" fontWeight="bold"/>
 				<mx:TextInput x="75" y="10" width="225" id="txiApenom" editable="false"/>
 			</mx:Canvas>
-			<mx:HBox height="40" verticalAlign="middle">
+			<mx:HBox height="30" verticalAlign="middle">
 				<mx:Image  source="img/vineta.png"/>
 				<mx:Label text="Antecedentes" width="200"/>	
 				<mx:Image id="imgAntecedentes" source="img/nok.png"/>
 			</mx:HBox>
-			<mx:HBox height="40" verticalAlign="middle">
+			<mx:HBox height="30" verticalAlign="middle">
 				<mx:Image source="img/vineta.png"/>
 				<mx:Label text="Completar Datos de la Consulta"  width="200"/>	
 				<mx:Image id="imgDatosConsulta" source="img/nok.png"/>
 			</mx:HBox>
-			<mx:HBox height="40" verticalAlign="middle">
+			<mx:HBox height="30" verticalAlign="middle">
 				<mx:Image  source="img/vineta.png"/>
 				<mx:Label text="Prescripciones"  width="200"/>	
 				<mx:Image id="imgPrescripciones" source="img/nok.png"/>
 			</mx:HBox>
-			<mx:HBox height="40" verticalAlign="middle">
+			<mx:HBox height="30" verticalAlign="middle">
 				<mx:Image  source="img/vineta.png"/>
 				<mx:Label text="Indicar Practicas y Estudios"  width="200"/>	
 				<mx:Image id="imgIndicarPracticas" source="img/nok.png"/>
 			</mx:HBox>
-			<mx:HBox height="40" verticalAlign="middle">
+			<mx:HBox height="30" verticalAlign="middle">
 				<mx:Image  source="img/vineta.png"/>
 				<mx:Label text="Cargar Resultados de Practicas"  width="200"/>	
 				<mx:Image id="imgCargarResultados" source="img/nok.png"/>
 			</mx:HBox>
-			<mx:HBox height="40" verticalAlign="middle">
+			<mx:HBox height="30" verticalAlign="middle">
 				<mx:Image  source="img/vineta.png"/>
 				<mx:Label text="Realizo Derivacion"  width="200"/>	
 				<mx:Image id="imgDerivacion" source="img/nok.png"/>
 			</mx:HBox>
-			<mx:HBox height="40" verticalAlign="middle">
+			<mx:HBox height="30" verticalAlign="middle">
 				<mx:Image  source="img/vineta.png"/>
 				<mx:Label text="Realizo Vacunacion"  width="200"/>	
 				<mx:Image id="imgVacunas" source="img/nok.png"/>
+			</mx:HBox>
+			<mx:HBox height="30" verticalAlign="middle">
+				<mx:Image source="img/vineta.png"/>
+				<mx:Label text="Especialidad"  width="200"/>	
+				<mx:Image id="imgEspecialidad" source="img/nok.png"/>
 			</mx:HBox>
 			<mx:ControlBar horizontalAlign="right">
 				<mx:Button label="Guardar Consulta" click="fncGuardarConsulta()"  icon="@Embed(source='../img/save.png')"/>

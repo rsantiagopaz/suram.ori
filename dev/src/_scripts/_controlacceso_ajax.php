@@ -29,9 +29,16 @@ header('Pragma: no-cache');
 // $PASSWORD = "punchi";
 // $BASE = "sursde";
 
+/*
  $USUARIO = "salud1";
  $PASSWORD = "argentina";
  $BASE = "salud1";
+*/
+ 
+ 
+ $USUARIO = "root";
+ $PASSWORD = "";
+ $BASE = "ramon_prueba_suram";
 
 
 
@@ -47,7 +54,7 @@ header('Pragma: no-cache');
  if (empty($_sessionid))
   {
    $_acceso='NO';
-   $_mensaje='¡ NO EXISTE SESION (si el mensaje persiste, comuníquelo al administrador de sistemas) !';
+   $_mensaje='ï¿½ NO EXISTE SESION (si el mensaje persiste, comunï¿½quelo al administrador de sistemas) !';
    $_login ='SI';
   }
 
@@ -61,7 +68,7 @@ header('Pragma: no-cache');
    if ($num<=0)
      {
       $_acceso='NO';
-      $_mensaje='¡ NO SE ENCONTRO SESION: '.$_sessionid.' (es probable que UD. no haya ingresado sus datos de acceso aún) !';
+      $_mensaje='ï¿½ NO SE ENCONTRO SESION: '.$_sessionid.' (es probable que UD. no haya ingresado sus datos de acceso aï¿½n) !';
       $_login ='SI';
      }
    else
@@ -76,11 +83,11 @@ header('Pragma: no-cache');
 	  if (empty($SYSusuario))
 	   {
 		$_acceso='NO';
-		$_mensaje='¡ NO SE ENCONTRO EL USUARIO VINCULADO A LA SESION: '.$_sessionid.' !';
+		$_mensaje='ï¿½ NO SE ENCONTRO EL USUARIO VINCULADO A LA SESION: '.$_sessionid.' !';
        } 
 	  else
 	   {
-         // Verifico si el usuario está activo es decir que "SYSusuario_estado = 1" 
+         // Verifico si el usuario estï¿½ activo es decir que "SYSusuario_estado = 1" 
          $result=mysql_query("SELECT * FROM _usuarios 
 		                       LEFT JOIN _organismos_areas_usuarios
 							          ON _organismos_areas_usuarios.SYSusuario = _usuarios.SYSusuario
@@ -110,16 +117,16 @@ header('Pragma: no-cache');
                $_acceso='SI';
                $_login ='NO';
 			   
-               // Verifico si el usuario está autorizado a utilizar el sistema.
+               // Verifico si el usuario estï¿½ autorizado a utilizar el sistema.
 			   if (empty($SYSsistema_id))
 			     {
                   $_acceso='NO';
                   $_login ='NO';
-				  $_mensaje='¡ ERROR DE SISTEMA: SYSsistema_id vacío !';
+				  $_mensaje='ï¿½ ERROR DE SISTEMA: SYSsistema_id vacï¿½o !';
    				 }
 				else
 				 {
-				  // Veo en tabla _sistemas_ususarios si está autorizado el usuario
+				  // Veo en tabla _sistemas_ususarios si estï¿½ autorizado el usuario
                   $result=mysql_query("SELECT SYSusuario, sistema_id FROM _sistemas_usuarios 
 				                        WHERE SYSusuario='$SYSusuario' 
 										  AND sistema_id='$SYSsistema_id'
@@ -141,8 +148,8 @@ header('Pragma: no-cache');
                       if ($num>0)
 					   {
 					    // Cargo en el arreglo SYSsistemas_perfiles_usuarios los perfiles del usuario SYSusuario
-						// para ver si un perfil está en el arreglo, usar la func. in_array($perfil_id,$SYSsistemas_perfiles_usuario)
-						// devolverá true si está o false.
+						// para ver si un perfil estï¿½ en el arreglo, usar la func. in_array($perfil_id,$SYSsistemas_perfiles_usuario)
+						// devolverï¿½ true si estï¿½ o false.
 						$SYSsistemas_perfiles_usuario='';
 						$indice=0;
 						if ($row=mysql_fetch_array($result) )
@@ -170,7 +177,7 @@ header('Pragma: no-cache');
 					 
 					 
 
-			         // Verifica si la sesión no está cerrada  
+			         // Verifica si la sesiï¿½n no estï¿½ cerrada  
 			         if(empty($SYSsesionfecha_cierre) OR $SYSsesionfecha_cierre=='0000-00-00')
 		               {
 		                $_acceso='SI';
@@ -178,21 +185,21 @@ header('Pragma: no-cache');
 		              else
 		               {
 		                $_acceso='NO';
-			            $_mensaje.='¡ La sesión ya se encuentra cerrada !';
+			            $_mensaje.='ï¿½ La sesiï¿½n ya se encuentra cerrada !';
 			            $_login='SI';
 		               } 
-                     // FIN: Verifica si la sesión no está cerrada
+                     // FIN: Verifica si la sesiï¿½n no estï¿½ cerrada
 					 
 				    }
 				   else
 				    {
 		              $_acceso='NO';
-			          $_mensaje.='¡ El usuario '.$SYSusuario.' NO ESTA AUTORIZADO a utilizar el sistema '.$SYSsistema_id.' !';
+			          $_mensaje.='ï¿½ El usuario '.$SYSusuario.' NO ESTA AUTORIZADO a utilizar el sistema '.$SYSsistema_id.' !';
 			          $_login='SI';
 				    }
-				  // FIN: Veo en tabla _sistemas_ususarios si está autorizado el usuario
+				  // FIN: Veo en tabla _sistemas_ususarios si estï¿½ autorizado el usuario
 				 }
-			    // FIN: Verifico si el usuario está autorizado a utilizar el sistema.			   
+			    // FIN: Verifico si el usuario estï¿½ autorizado a utilizar el sistema.			   
 			    
 			   
 			   
@@ -200,7 +207,7 @@ header('Pragma: no-cache');
 			 else
 			  {
                $_acceso='NO';
-               $_mensaje='¡ El usuario '.$SYSusuario.' no está AUTORIZADO PARA EL USO DE NINGUN SISTEMA !';
+               $_mensaje='ï¿½ El usuario '.$SYSusuario.' no estï¿½ AUTORIZADO PARA EL USO DE NINGUN SISTEMA !';
                $_login ='NO';
 			  }
 	
@@ -208,12 +215,12 @@ header('Pragma: no-cache');
 		 else
 		  {
            $_acceso='NO';
-           $_mensaje='¡ El usuario '.$SYSusuario.' NO EXISTE !';
+           $_mensaje='ï¿½ El usuario '.$SYSusuario.' NO EXISTE !';
            $_login ='NO';
 		  }
 		     
 			
-         // FIN: Verifico si el usuario está activo es decir que "SYSusuario_estado = 1" 
+         // FIN: Verifico si el usuario estï¿½ activo es decir que "SYSusuario_estado = 1" 
 		 			
 	   } 
      }

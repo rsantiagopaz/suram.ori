@@ -50,7 +50,7 @@ function toXML(&$xml, $sql , $tag = "row") {
 
 	$paramet = @mysql_query($sql);
 	$nodo = null;
-	if (mysql_insert_id()){ 
+	if (mysql_insert_id()){
 		$nodo=$xml->addChild("insert_id", mysql_insert_id());
 	}
 	if (mysql_errno()>0) {
@@ -59,7 +59,7 @@ function toXML(&$xml, $sql , $tag = "row") {
 	}
 	else{
 		if (is_resource($paramet)) {
-			WHILE ($row = mysql_fetch_array($paramet)) {
+			while ($row = mysql_fetch_array($paramet)) {
 				$nodo=$xml->addChild($tag);	
 				foreach($row as $key => $value) {
 					if (!is_numeric($key)) $nodo->addAttribute($key, $value);
@@ -86,6 +86,51 @@ function toXML(&$xml, $sql , $tag = "row") {
 	}
 	return $nodo;
 }
+
+
+
+function toXML_mio(&$xml, $paramet , $tag = "row") {
+	if (is_string($paramet)) {
+		$cadena = strtoupper(substr(trim($paramet), 0, 6));
+		if ($cadena=="INSERT" || $cadena=="SELECT") {
+			$paramet = @mysql_query($paramet);
+			if (mysql_errno() > 0) {
+				$nodo = toXML_mio($xml, "<error>" . "Error devuelto por la Base de Datos: " . mysql_errno() . " " . mysql_error() . "\n" . "</error>");
+			} else if ($cadena=="INSERT"){ 
+				$nodo=$xml->addChild("insert_id", mysql_insert_id());
+			} else {
+				$nodo = toXML_mio($xml, $paramet, $tag);
+			}
+		} else {
+			$nodo=new SimpleXMLElement($paramet);
+			$nodo=$xml->addChild($nodo->getName(), $nodo[0]);
+		}
+	} else if (is_resource($paramet)) {
+		while ($row = mysql_fetch_array($paramet)) {
+			$nodo=$xml->addChild($tag);	
+			foreach($row as $key => $value) {
+				if (!is_numeric($key)) $nodo->addAttribute($key, $value);
+			}
+		}
+		$nodo=null;
+	} else if (is_array($paramet)) {
+		$nodo=$xml->addChild($tag);
+		foreach($paramet as $key => $value) {
+			if (!is_numeric($key)) $nodo->addAttribute($key, $value);
+		}
+	} else if (is_a($paramet, "SimpleXMLElement")) {
+		$nodo=$xml->addChild($paramet->getName(), $paramet);
+		foreach($paramet->attributes() as $key => $value) {
+    		$nodo->addAttribute($key, $value);
+		}
+		foreach ($paramet->children() as $hijo) {
+			toXML_mio($nodo, $hijo);
+		}
+	}
+	return $nodo;
+}
+
+
 
 function DMYYYY($fecha) {
 	$f=explode("-", $fecha);

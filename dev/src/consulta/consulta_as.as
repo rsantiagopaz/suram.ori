@@ -6,6 +6,8 @@
 	import mx.controls.Alert;
 	import mx.rpc.events.ResultEvent;
 	
+	import page_especialidad.oftalmologia.page_oftalmologia;
+	
 	include "../control_acceso.as";
 
 	private var _idIngreso : String;
@@ -21,6 +23,11 @@
 	private var _ConfirmIndicarPracticas : Boolean = false;
 	private var _ConfirmImprimirPrescripciones : Boolean = false;
 	
+	private var _ConfirmEspecialidad : Boolean = false;
+	
+	public var id_especialidad : String;
+	public var page_oftalmologia_1 : page_oftalmologia;
+	
 	public function fncInit(ingreso:String):void
 	{
 		consultaTabs.selectedIndex=0;
@@ -34,18 +41,57 @@
 		_ConfirmIndicarPracticas  = false;
 		_ConfirmImprimirPrescripciones = false;
 		
+		_ConfirmEspecialidad = false;
+		
 		_idIngreso = ingreso;
 		_xmlDatosPaciente = new XML;
 		
 		httpDatos.url = "consulta/consulta.php";
 		httpDatos.addEventListener("acceso",acceso);
 		httpDatos.addEventListener(ResultEvent.RESULT,fncCargarDatos);
-		httpDatos.send({rutina:"traer_datos", id_ingreso:_idIngreso});
+		//httpDatos.send({rutina:"traer_datos", id_ingreso:_idIngreso});
 		
 		httpGuardar.url = "consulta/consulta.php";
 		httpGuardar.addEventListener("acceso",acceso);
 		httpGuardar.addEventListener(ResultEvent.RESULT,fncResultAlta);
 		
+		
+		
+
+		var httpAux : HTTPServices = new HTTPServices;
+		httpAux.url = "consulta/consulta.php";
+		httpAux.resultFormat = "text";
+		httpAux.addEventListener(ResultEvent.RESULT, function():void{
+			var lastResult : String = httpAux.lastResult as String;
+			
+			if (id_especialidad != null && id_especialidad != lastResult) {
+				id_especialidad = lastResult;
+				consultaTabs.removeChildAt(8);
+				
+				if (id_especialidad == "42") {
+					page_oftalmologia_1 = new page_oftalmologia;
+					consultaTabs.addChildAt(page_oftalmologia_1, 8);
+				}
+			}
+			
+			httpDatos.send({rutina:"traer_datos", id_ingreso:_idIngreso});			
+		});
+		httpAux.send({rutina:"leer_especialidad", id_servicio: parentApplication.controlAcceso.usuario_servicio_id});
+	}
+	
+	private function Module_creationComplete() : void {
+		var httpAux : HTTPServices = new HTTPServices;
+		httpAux.url = "consulta/consulta.php";
+		httpAux.resultFormat = "text";
+		httpAux.addEventListener(ResultEvent.RESULT, function() : void {
+			id_especialidad = httpAux.lastResult as String;
+			
+			if (id_especialidad == "42") {
+				page_oftalmologia_1 = new page_oftalmologia;
+				consultaTabs.addChildAt(page_oftalmologia_1, 8);
+			}
+		});
+		httpAux.send({rutina:"leer_especialidad", id_servicio: parentApplication.controlAcceso.usuario_servicio_id});
 	}
 	
 	private function fncCerrar():void{
@@ -77,7 +123,10 @@
 	public function set ConfirmIndicarPracticas(v:Boolean):void { _ConfirmIndicarPracticas = v;}
 	
 	public function get ConfirmImprimirPrescripciones():Boolean { return _ConfirmImprimirPrescripciones}
-	public function set ConfirmImprimirPrescripciones(v:Boolean):void { _ConfirmImprimirPrescripciones = v;}		
+	public function set ConfirmImprimirPrescripciones(v:Boolean):void { _ConfirmImprimirPrescripciones = v;}
+	
+	public function get ConfirmEspecialidad():Boolean { return _ConfirmEspecialidad}
+	public function set ConfirmEspecialidad(v:Boolean):void { _ConfirmEspecialidad = v;}
 	
 	private function fncCargarDatos(e:ResultEvent):void
 	{
@@ -92,6 +141,10 @@
 		if (ModVacunacion){ModVacunacion.fncInit();}
 		if (ModResultadosPracticas){ModResultadosPracticas.fncInit();}
 		if (ModDerivaciones){ModDerivaciones.fncInit();}
+		
+		if (id_especialidad == "42") {
+			page_oftalmologia_1.fncInit();
+		}
 	}
 	
 	private function fncViewHistorial():void
@@ -135,6 +188,8 @@
 			imgDerivacion.source = ConfirmDerivaciones ? "img/ok.png" : "img/nok.png";
 			imgIndicarPracticas.source = ConfirmIndicarPracticas ? "img/ok.png" : "img/nok.png";
 			imgCargarResultados.source = ConfirmCargaResultados ? "img/ok.png" : "img/nok.png";
+			
+			imgEspecialidad.source = ConfirmEspecialidad ? "img/ok.png" : "img/nok.png";
 		}		
 	}
 	
@@ -151,7 +206,16 @@
 			if (ConfirmCargaResultados){xmlGuardar.appendChild(ModResultadosPracticas.xmlResultados)}
 			if (ConfirmDerivaciones){xmlGuardar.appendChild(ModDerivaciones.xmlDerivacion)}
 			if (ConfirmVacunaciones){xmlGuardar.appendChild(ModVacunacion.xmlVacunaciones)}
-			httpGuardar.send({rutina:"guardar_datos", xmlDatos:xmlGuardar});
+			
+			if (ConfirmEspecialidad){
+				consultaTabs.getChildren()[8].xmlModel.ingresos_especialidad.@id_especialidad = id_especialidad;
+				xmlGuardar.appendChild(consultaTabs.getChildren()[8].xmlModel)
+			}
+			
+			Alert.show(xmlGuardar.toXMLString());
+			//Alert.show(consultaTabs.getChildren()[8].xmlModel.toXMLString());
+			
+			//httpGuardar.send({rutina:"guardar_datos", xmlDatos:xmlGuardar});
 		}else{
 			Alert.show("Debe Confirmar los Datos de la Consulta","ERROR");
 		}

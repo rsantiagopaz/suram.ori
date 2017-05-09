@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" title="Especialidad" label="Especialidad" creationComplete="Panel_creationComplete()" width="100%" height="100%" layout="absolute">
+	<mx:Script source="page_oftalmologia_as.as"/>
+	
+	<mx:XML id="xmlModel" format="e4x">
+	<ingresos_especialidad>
+		<ingresos_especialidad 
+			antecedentes="{txtAntecedentes.text}" 
+			enfermedad="{txtEnfermedad.text}" 
+			pronostico="{txtPronostico.text}" 
+			indicaciones="{txtIndicaciones.text}" 
+			agudeza_od="{txtAgudeza_od.text}" 
+			agudeza_oi="{txtAgudeza_oi.text}" 
+			refraccion_od="{txtRefraccion_od.text}" 
+			refraccion_oi="{txtRefraccion_oi.text}" 
+			pio_od="{txtPio_od.text}" 
+			pio_oi="{txtPio_oi.text}" 
+			biomi_od="{txtBiomi_od.text}" 
+			biomi_oi="{txtBiomi_oi.text}" 
+			fo_od="{txtFo_od.text}" 
+			fo_oi="{txtFo_oi.text}" 
+			diagnostico_od="{txtDiagnostico_od.text}" 
+			diagnostico_oi="{txtDiagnostico_oi.text}" 
+		/>
+	</ingresos_especialidad>
+	</mx:XML>
+
+	
+	<mx:Canvas width="315" height="34">
+		<mx:Label x="10" y="10" text="Paciente:" fontWeight="bold"/>
+		<mx:TextInput x="75" y="10" width="225" id="txiApenom" editable="false"/>
+	</mx:Canvas>
+	<mx:Form width="298" height="272" y="42" x="0">
+		<mx:FormHeading label="General"/>
+		<mx:FormItem label="Antecedentes:">
+			<mx:TextArea id="txtAntecedentes" text="{xmlModel.ingresos_especialidad.@antecedentes}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Enfermedad:">
+			<mx:TextArea id="txtEnfermedad" text="{xmlModel.ingresos_especialidad.@enfermedad}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Pronóstico">
+			<mx:TextArea id="txtPronostico" text="{xmlModel.ingresos_especialidad.@pronostico}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Indicaciones">
+			<mx:TextArea id="txtIndicaciones" text="{xmlModel.ingresos_especialidad.@indicaciones}"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:Form x="306" y="42" height="272">
+		<mx:FormHeading label="Agudeza"/>
+		<mx:FormItem label="O.D.:">
+			<mx:TextInput id="txtAgudeza_od" text="{xmlModel.ingresos_especialidad.@agudeza_od}"/>
+		</mx:FormItem>
+		<mx:FormItem label="O.I.:">
+			<mx:TextInput id="txtAgudeza_oi" text="{xmlModel.ingresos_especialidad.@agudeza_oi}"/>
+		</mx:FormItem>
+		<mx:FormHeading label="Refracción"/>
+		<mx:FormItem label="O.D.:">
+			<mx:TextInput id="txtRefraccion_od" text="{xmlModel.ingresos_especialidad.@refraccion_od}"/>
+		</mx:FormItem>
+		<mx:FormItem label="O.I.:">
+			<mx:TextInput id="txtRefraccion_oi" text="{xmlModel.ingresos_especialidad.@refraccion_oi}"/>
+		</mx:FormItem>
+		<mx:FormHeading label="P.I.O."/>
+		<mx:FormItem label="O.D.:">
+			<mx:TextInput id="txtPio_od" text="{xmlModel.ingresos_especialidad.@pio_od}"/>
+		</mx:FormItem>
+		<mx:FormItem label="O.I.:">
+			<mx:TextInput id="txtPio_oi" text="{xmlModel.ingresos_especialidad.@pio_oi}"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:Form x="555" y="42">
+		<mx:FormHeading label="BIOMI."/>
+		<mx:FormItem label="O.D.:">
+			<mx:TextInput id="txtBiomi_od" text="{xmlModel.ingresos_especialidad.@biomi_od}"/>
+		</mx:FormItem>
+		<mx:FormItem label="O.I.:">
+			<mx:TextInput id="txtBiomi_oi" text="{xmlModel.ingresos_especialidad.@biomi_oi}"/>
+		</mx:FormItem>
+		<mx:FormHeading label="F.O."/>
+		<mx:FormItem label="O.D.:">
+			<mx:TextInput id="txtFo_od" text="{xmlModel.ingresos_especialidad.@fo_od}"/>
+		</mx:FormItem>
+		<mx:FormItem label="O.I.:">
+			<mx:TextInput id="txtFo_oi" text="{xmlModel.ingresos_especialidad.@fo_oi}"/>
+		</mx:FormItem>
+		<mx:FormHeading label="Diagnóstico"/>
+		<mx:FormItem label="O.D.:">
+			<mx:TextInput id="txtDiagnostico_od" text="{xmlModel.ingresos_especialidad.@diagnostico_od}"/>
+		</mx:FormItem>
+		<mx:FormItem label="O.I.:">
+			<mx:TextInput id="txtDiagnostico_oi" text="{xmlModel.ingresos_especialidad.@diagnostico_oi}"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ControlBar horizontalAlign="right">
+		<mx:Label width="150" id="lblEstado" fontWeight="bold"/>
+		<mx:Button label="Cancelar Especialidad" id="btnCancelar" icon="@Embed(source='../../img/close.png')"/>
+		<mx:Button label="Confirmar Especialidad" id="btnConfirmar" icon="@Embed(source='../../img/save.png')"/>
+	</mx:ControlBar>
+</mx:Panel>
