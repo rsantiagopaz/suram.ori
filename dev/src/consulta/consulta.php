@@ -179,12 +179,13 @@ switch ($_REQUEST['rutina'])
 		$xml_vacunaciones = $xml_datos->vacunaciones;
 		
 		$xml_especialidad = $xml_datos->ingresos_especialidad;
-		
-		//$json = json_encode($xml_especialidad);
-		$json = $xml_especialidad->asXML();
-		$sql = "INSERT ingresos_especialidad SET id_ingreso='" . $xml_datosconsulta->id_ingreso . "', id_especialidad='" . $xml_especialidad->ingresos_especialidad['id_especialidad'] . "', json='" . $json . "'";
-		$sql.= " ON DUPLICATE KEY UPDATE id_especialidad='" . $xml_especialidad->ingresos_especialidad['id_especialidad'] . "', json='" . $json . "'";
-		mysql_query($sql);
+		if ($xml_especialidad->asXML() != "") {
+			//$json = json_encode($xml_especialidad);
+			$json = $xml_especialidad->asXML();
+			$sql = "INSERT ingresos_especialidad SET id_ingreso='" . $xml_datosconsulta->id_ingreso . "', id_especialidad='" . $xml_especialidad->ingresos_especialidad['id_especialidad'] . "', json='" . $json . "'";
+			$sql.= " ON DUPLICATE KEY UPDATE id_especialidad='" . $xml_especialidad->ingresos_especialidad['id_especialidad'] . "', json='" . $json . "'";
+			mysql_query($sql);
+		}
 
 		
 		$sql = "UPDATE ingresos SET ";

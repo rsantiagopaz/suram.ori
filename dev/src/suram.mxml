@@ -356,10 +356,10 @@
 			<mx:Panel layout="absolute" id="pnlControlAcceso" title="Acceso al Sistema" horizontalAlign="center" horizontalCenter="0" verticalCenter="-53">
 				<mx:Form x="10" y="10" width="100%" height="138">
 					<mx:FormItem label="Usuario">
-						<mx:TextInput focusOut="fncTraerServicios()" id="textInputUsuario" width="120" text="diegopalavecino"/>
+						<mx:TextInput focusOut="fncTraerServicios()" id="textInputUsuario" width="120"/>
 					</mx:FormItem>
 					<mx:FormItem label="Password">
-						<mx:TextInput id="textInputPassword" displayAsPassword="true" width="119" text="diego"/>
+						<mx:TextInput id="textInputPassword" displayAsPassword="true" width="119"/>
 					</mx:FormItem>
 					<mx:FormItem label="Area">
 						<mx:ComboBox dataProvider="{xmlServiciosUser.areaservicio}" labelField="@area" enabled="false" editable="false" id="cmbArea" width="285"></mx:ComboBox>

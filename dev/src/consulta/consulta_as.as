@@ -212,10 +212,10 @@
 				xmlGuardar.appendChild(consultaTabs.getChildren()[8].xmlModel)
 			}
 			
-			Alert.show(xmlGuardar.toXMLString());
+			//Alert.show(xmlGuardar.toXMLString());
 			//Alert.show(consultaTabs.getChildren()[8].xmlModel.toXMLString());
 			
-			//httpGuardar.send({rutina:"guardar_datos", xmlDatos:xmlGuardar});
+			httpGuardar.send({rutina:"guardar_datos", xmlDatos:xmlGuardar});
 		}else{
 			Alert.show("Debe Confirmar los Datos de la Consulta","ERROR");
 		}

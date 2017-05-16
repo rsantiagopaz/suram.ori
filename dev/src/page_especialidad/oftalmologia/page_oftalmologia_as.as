@@ -15,9 +15,11 @@ public function fncInit():void
 	_xmlDatosPaciente.appendChild(this.parentDocument.xmlDatosPaciente.paciente);
 	txiApenom.text = _xmlDatosPaciente.paciente.@apeynom;
 	
+	lblEstado.text = '';
+	
 	//Alert.show(this.parentDocument.xmlDatosPaciente.toXMLString());
 	xmlModel.ingresos_especialidad = this.parentDocument.xmlDatosPaciente.ingresos_especialidad.ingresos_especialidad;
-	//Alert.show(xmlModel.toXMLString());
+	//Alert.show("init");
 }
 
 
