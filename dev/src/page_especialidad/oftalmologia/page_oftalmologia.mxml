@@ -45,7 +45,7 @@
 			<mx:TextArea id="txtIndicaciones" text="{xmlModel.ingresos_especialidad.@indicaciones}"/>
 		</mx:FormItem>
 	</mx:Form>
-	<mx:Form x="306" y="42" height="272">
+	<mx:Form x="306" y="22" height="292">
 		<mx:FormHeading label="Agudeza"/>
 		<mx:FormItem label="O.D.:">
 			<mx:TextInput id="txtAgudeza_od" text="{xmlModel.ingresos_especialidad.@agudeza_od}"/>
@@ -68,7 +68,7 @@
 			<mx:TextInput id="txtPio_oi" text="{xmlModel.ingresos_especialidad.@pio_oi}"/>
 		</mx:FormItem>
 	</mx:Form>
-	<mx:Form x="555" y="42">
+	<mx:Form x="555" y="22" height="292">
 		<mx:FormHeading label="BIOMI."/>
 		<mx:FormItem label="O.D.:">
 			<mx:TextInput id="txtBiomi_od" text="{xmlModel.ingresos_especialidad.@biomi_od}"/>

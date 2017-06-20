@@ -12,8 +12,15 @@ $xmlResultados=new SimpleXMLElement('<rows/>');
 $xmlDiagnosticos=new SimpleXMLElement('<rows/>');
 $xmlNacimientos=new SimpleXMLElement('<rows/>');
 $xmlCoberturas=new SimpleXMLElement('<rows/>');
+
+
+
+$xmlEspecialidad=new SimpleXMLElement('<rows/>');
+$sql="SELECT ingresos_especialidad.* FROM ingresos_especialidad INNER JOIN ingresos_movimientos USING(id_ingreso) WHERE id_ingreso_movimiento=" . $id_ingreso_movimiento;
+toXML_mio($xmlEspecialidad, $sql, "especialidad");
 		
-		
+
+
 
 $sql="SELECT IF (i.embarazo_fechaterminacion IS NULL,'00/00/0000',DATE_FORMAT(i.embarazo_fechaterminacion,'%d/%m/%Y')) 'embarazo_fechaterminacion', ";
 $sql.="IF (i.embarazo_edad_gestacional IS NULL,'0',i.embarazo_edad_gestacional) 'embarazo_edad_gestacional', i.embarazo_paridad, ";
@@ -397,6 +404,64 @@ th{font-weight: bold;text-align:center;background-color:#CCCCCC;}
 		<?php } ?>
 		</table>
 	<?php }
-?>
+	
+	if($xmlEspecialidad->especialidad){
+		$especialidad = new SimpleXMLElement($xmlEspecialidad->especialidad['json']);
+		$especialidad = $especialidad->ingresos_especialidad;
+		if((string) $xmlEspecialidad->especialidad['id_especialidad'] == "42"){
+		
+			?>
+			<h3>Especialidad</h3>
+	
+			<table>
+				<tr>
+					<td class="title">Antecedentes:</td><td><?php echo nl2br($especialidad['antecedentes']); ?></td>
+					<td class="title">Enfermedad:</td><td><?php echo nl2br($especialidad['enfermedad']); ?></td>
+				</tr>
+				<tr>
+					<td class="title">Pronostico:</td><td><?php echo nl2br($especialidad['pronostico']); ?></td>
+					<td class="title">Indicaciones:</td><td><?php echo nl2br($especialidad['indicaciones']); ?></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				
+				<tr><td colspan="4">
+				<table>
+					<tr>
+						<td class="title">Agudeza O.D.:</td><td><?php echo $especialidad['agudeza_od']; ?></td>
+						<td class="title">Refraccion O.D.:</td><td><?php echo $especialidad['refraccion_od']; ?></td>
+						<td class="title">P.I.O. O.D.:</td><td><?php echo $especialidad['pio_od']; ?></td>
+					</tr>
+					<tr>
+						<td class="title">Agudeza O.I.:</td><td><?php echo $especialidad['agudeza_oi']; ?></td>
+						<td class="title">Refraccion O.I.:</td><td><?php echo $especialidad['refraccion_oi']; ?></td>
+						<td class="title">P.I.O. O.I.:</td><td><?php echo $especialidad['pio_oi']; ?></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td class="title">BIOMI. O.D.:</td><td><?php echo $especialidad['biomi_od']; ?></td>
+						<td class="title">F.O. O.D.:</td><td><?php echo $especialidad['fo_od']; ?></td>
+						<td class="title">Diagnóstico O.D.:</td><td><?php echo $especialidad['diagnostico_od']; ?></td>
+					</tr>
+					<tr>
+						<td class="title">BIOMI. O.I.:</td><td><?php echo $especialidad['biomi_oi']; ?></td>
+						<td class="title">F.O. O.I.:</td><td><?php echo $especialidad['fo_oi']; ?></td>
+						<td class="title">Diagnóstico O.I.:</td><td><?php echo $especialidad['diagnostico_oi']; ?></td>
+					</tr>
+				</table>
+				</td></tr>
+				
+			</table>
+	
+	<?php
+	
+		}
+	}
+	
+	?>
+	
 </body>
 </html>
