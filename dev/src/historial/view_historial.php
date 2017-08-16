@@ -429,27 +429,36 @@ th{font-weight: bold;text-align:center;background-color:#CCCCCC;}
 				<tr><td colspan="4">
 				<table>
 					<tr>
-						<td class="title">Agudeza O.D.:</td><td><?php echo $especialidad['agudeza_od']; ?></td>
-						<td class="title">Refraccion O.D.:</td><td><?php echo $especialidad['refraccion_od']; ?></td>
-						<td class="title">P.I.O. O.D.:</td><td><?php echo $especialidad['pio_od']; ?></td>
+						<td class="title">Agudeza s/c O.D.:</td><td><?php echo $especialidad['agudeza_sc_od']; ?></td>
+						<td class="title">Agudeza c/c O.D.:</td><td><?php echo $especialidad['agudeza_cc_od']; ?></td>
+						<td class="title">Refraccion O.D.:</td><td><?php echo $especialidad['esf_od'] . " / " . $especialidad['cil_od'] . " / " . $especialidad['eje_od']; ?></td>
 					</tr>
 					<tr>
-						<td class="title">Agudeza O.I.:</td><td><?php echo $especialidad['agudeza_oi']; ?></td>
-						<td class="title">Refraccion O.I.:</td><td><?php echo $especialidad['refraccion_oi']; ?></td>
-						<td class="title">P.I.O. O.I.:</td><td><?php echo $especialidad['pio_oi']; ?></td>
+						<td class="title">Agudeza s/c O.I.:</td><td><?php echo $especialidad['agudeza_sc_oi']; ?></td>
+						<td class="title">Agudeza c/c O.I.:</td><td><?php echo $especialidad['agudeza_cc_oi']; ?></td>
+						<td class="title">Refraccion O.I.:</td><td><?php echo $especialidad['esf_oi'] . " / " . $especialidad['cil_oi'] . " / " . $especialidad['eje_oi']; ?></td>
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
 					</tr>
 					<tr>
+						<td class="title">P.I.O. O.D.:</td><td><?php echo $especialidad['pio_od']; ?></td>
 						<td class="title">BIOMI. O.D.:</td><td><?php echo $especialidad['biomi_od']; ?></td>
 						<td class="title">F.O. O.D.:</td><td><?php echo $especialidad['fo_od']; ?></td>
-						<td class="title">Diagnóstico O.D.:</td><td><?php echo $especialidad['diagnostico_od']; ?></td>
 					</tr>
 					<tr>
+						<td class="title">P.I.O. O.I.:</td><td><?php echo $especialidad['pio_oi']; ?></td>
 						<td class="title">BIOMI. O.I.:</td><td><?php echo $especialidad['biomi_oi']; ?></td>
 						<td class="title">F.O. O.I.:</td><td><?php echo $especialidad['fo_oi']; ?></td>
-						<td class="title">Diagnóstico O.I.:</td><td><?php echo $especialidad['diagnostico_oi']; ?></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td class="title">Diagnóstico O.D.:</td><td colspan="10"><?php echo nl2br($especialidad['diagnostico_od']); ?></td>
+					</tr>
+					<tr>
+						<td class="title">Diagnóstico O.I.:</td><td colspan="10"><?php echo nl2br($especialidad['diagnostico_oi']); ?></td>
 					</tr>
 				</table>
 				</td></tr>

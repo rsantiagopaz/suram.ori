@@ -9,12 +9,23 @@
 			enfermedad="{txtEnfermedad.text}" 
 			pronostico="{txtPronostico.text}" 
 			indicaciones="{txtIndicaciones.text}" 
-			agudeza_od="{txtAgudeza_od.text}" 
-			agudeza_oi="{txtAgudeza_oi.text}" 
-			refraccion_od="{txtRefraccion_od.text}" 
-			refraccion_oi="{txtRefraccion_oi.text}" 
-			pio_od="{txtPio_od.text}" 
-			pio_oi="{txtPio_oi.text}" 
+			
+			agudeza_sc_od="{pmb_sc_od.label}" 
+			agudeza_sc_oi="{pmb_sc_oi.label}" 
+			
+			agudeza_cc_od="{pmb_cc_od.label}" 
+			agudeza_cc_oi="{pmb_cc_oi.label}" 
+			
+			esf_od="{spnEsf_od.value}" 
+			esf_oi="{spnEsf_oi.value}" 
+			cil_od="{spnCil_od.value}" 
+			cil_oi="{spnCil_oi.value}" 
+			eje_od="{spnEje_od.value}" 
+			eje_oi="{spnEje_oi.value}" 
+			
+			pio_od="{spnPio_od.value}" 
+			pio_oi="{spnPio_oi.value}" 
+			
 			biomi_od="{txtBiomi_od.text}" 
 			biomi_oi="{txtBiomi_oi.text}" 
 			fo_od="{txtFo_od.text}" 
@@ -30,67 +41,221 @@
 		<mx:Label x="10" y="10" text="Paciente:" fontWeight="bold"/>
 		<mx:TextInput x="75" y="10" width="225" id="txiApenom" editable="false"/>
 	</mx:Canvas>
-	<mx:Form width="298" height="272" y="42" x="0">
-		<mx:FormHeading label="General"/>
-		<mx:FormItem label="Antecedentes:">
-			<mx:TextArea id="txtAntecedentes" text="{xmlModel.ingresos_especialidad.@antecedentes}"/>
-		</mx:FormItem>
-		<mx:FormItem label="Enfermedad:">
-			<mx:TextArea id="txtEnfermedad" text="{xmlModel.ingresos_especialidad.@enfermedad}"/>
-		</mx:FormItem>
-		<mx:FormItem label="Pronóstico">
-			<mx:TextArea id="txtPronostico" text="{xmlModel.ingresos_especialidad.@pronostico}"/>
-		</mx:FormItem>
-		<mx:FormItem label="Indicaciones">
-			<mx:TextArea id="txtIndicaciones" text="{xmlModel.ingresos_especialidad.@indicaciones}"/>
-		</mx:FormItem>
-	</mx:Form>
-	<mx:Form x="306" y="22" height="292">
-		<mx:FormHeading label="Agudeza"/>
-		<mx:FormItem label="O.D.:">
-			<mx:TextInput id="txtAgudeza_od" text="{xmlModel.ingresos_especialidad.@agudeza_od}"/>
-		</mx:FormItem>
-		<mx:FormItem label="O.I.:">
-			<mx:TextInput id="txtAgudeza_oi" text="{xmlModel.ingresos_especialidad.@agudeza_oi}"/>
-		</mx:FormItem>
-		<mx:FormHeading label="Refracción"/>
-		<mx:FormItem label="O.D.:">
-			<mx:TextInput id="txtRefraccion_od" text="{xmlModel.ingresos_especialidad.@refraccion_od}"/>
-		</mx:FormItem>
-		<mx:FormItem label="O.I.:">
-			<mx:TextInput id="txtRefraccion_oi" text="{xmlModel.ingresos_especialidad.@refraccion_oi}"/>
-		</mx:FormItem>
-		<mx:FormHeading label="P.I.O."/>
-		<mx:FormItem label="O.D.:">
-			<mx:TextInput id="txtPio_od" text="{xmlModel.ingresos_especialidad.@pio_od}"/>
-		</mx:FormItem>
-		<mx:FormItem label="O.I.:">
-			<mx:TextInput id="txtPio_oi" text="{xmlModel.ingresos_especialidad.@pio_oi}"/>
-		</mx:FormItem>
-	</mx:Form>
-	<mx:Form x="555" y="22" height="292">
-		<mx:FormHeading label="BIOMI."/>
-		<mx:FormItem label="O.D.:">
-			<mx:TextInput id="txtBiomi_od" text="{xmlModel.ingresos_especialidad.@biomi_od}"/>
-		</mx:FormItem>
-		<mx:FormItem label="O.I.:">
-			<mx:TextInput id="txtBiomi_oi" text="{xmlModel.ingresos_especialidad.@biomi_oi}"/>
-		</mx:FormItem>
-		<mx:FormHeading label="F.O."/>
-		<mx:FormItem label="O.D.:">
-			<mx:TextInput id="txtFo_od" text="{xmlModel.ingresos_especialidad.@fo_od}"/>
-		</mx:FormItem>
-		<mx:FormItem label="O.I.:">
-			<mx:TextInput id="txtFo_oi" text="{xmlModel.ingresos_especialidad.@fo_oi}"/>
-		</mx:FormItem>
-		<mx:FormHeading label="Diagnóstico"/>
-		<mx:FormItem label="O.D.:">
-			<mx:TextInput id="txtDiagnostico_od" text="{xmlModel.ingresos_especialidad.@diagnostico_od}"/>
-		</mx:FormItem>
-		<mx:FormItem label="O.I.:">
-			<mx:TextInput id="txtDiagnostico_oi" text="{xmlModel.ingresos_especialidad.@diagnostico_oi}"/>
-		</mx:FormItem>
-	</mx:Form>
+	<mx:ToggleButtonBar dataProvider="viewstack1" x="0" y="42">
+	</mx:ToggleButtonBar>
+	<mx:ViewStack id="viewstack1" top="72" left="0" bottom="0" right="0">
+		<mx:Canvas label="General" width="100%" height="100%">
+			<mx:Label x="10" y="10" text="Antecedentes:"/>
+			<mx:Label x="10" y="62" text="Enfermedad:"/>
+			<mx:Label x="356" y="10" text="Pronóstico:"/>
+			<mx:Label x="344" y="62" text="Indicaciones:"/>
+			<mx:TextArea id="txtAntecedentes" text="{xmlModel.ingresos_especialidad.@antecedentes}" x="103" y="9" width="200"/>
+			<mx:TextArea id="txtEnfermedad" text="{xmlModel.ingresos_especialidad.@enfermedad}" x="103" y="61" width="200"/>
+			<mx:TextArea id="txtPronostico" text="{xmlModel.ingresos_especialidad.@pronostico}" x="431" y="9" width="200"/>
+			<mx:TextArea id="txtIndicaciones" text="{xmlModel.ingresos_especialidad.@indicaciones}" x="431" y="61" width="200"/>
+		</mx:Canvas>
+		<mx:Canvas label="Agudeza" width="100%" height="100%">
+			<mx:Label x="10" y="0" text="Sin corrección"/>
+			<mx:Label x="10" y="28" text="O.D.:"/>
+			<mx:Label x="13" y="58" text="O.I.:"/>
+			<mx:Label x="10" y="86" text="Con corrección"/>
+			<mx:Label x="10" y="114" text="O.D.:"/>
+			<mx:Label x="13" y="144" text="O.I.:"/>
+			<mx:PopUpMenuButton x="53" y="26" labelField="@label" id="pmb_sc_od" width="238" label="{xmlModel.ingresos_especialidad.@agudeza_sc_od}">
+				<mx:dataProvider>
+					<mx:XMLList xmlns="">
+					   	<item label="No percibe luz" value="No percibe luz"/>
+					   	<item label="Percibe luz" value="Percibe luz">
+					   		<item label="Buena proyección" value="Percibe luz / Buena proyección"/>
+					   		<item label="Mala proyección" value="Percibe luz / Mala proyección"/>
+					   	</item>
+					   	<item label="Bultos" value="Bultos">
+					   		<item label="30 cm" value="Bultos / 30 cm"/>
+					   		<item label="1 m" value="Bultos / 1 m"/>
+					   		<item label="2 m" value="Bultos / 2 m"/>
+					   		<item label="3 m" value="Bultos / 3 m"/>
+					   		<item label="4 m" value="Bultos / 4 m"/>
+					   		<item label="5 m" value="Bultos / 5 m"/>
+					   		<item label="6 m" value="Bultos / 6 m"/>
+					   	</item>
+					   	<item label="Cuenta dedos" value="Cuenta dedos">
+					   		<item label="30 cm" value="Cuenta dedos / 30 cm"/>
+					   		<item label="1 m" value="Cuenta dedos / 1 m"/>
+					   		<item label="2 m" value="Cuenta dedos / 2 m"/>
+					   		<item label="3 m" value="Cuenta dedos / 3 m"/>
+					   		<item label="4 m" value="Cuenta dedos / 4 m"/>
+					   		<item label="5 m" value="Cuenta dedos / 5 m"/>
+					   		<item label="6 m" value="Cuenta dedos / 6 m"/>
+					   	</item>
+					   	<item label="1/10" value="1/10"/>
+					   	<item label="2/10" value="2/10"/>
+					   	<item label="3/10" value="3/10"/>
+					   	<item label="4/10" value="4/10"/>
+					   	<item label="5/10" value="5/10"/>
+					   	<item label="6/10" value="6/10"/>
+					   	<item label="7/10" value="7/10"/>
+					   	<item label="8/10" value="8/10"/>
+					   	<item label="9/10" value="9/10"/>
+					   	<item label="10/10" value="10/10"/>
+					</mx:XMLList>
+				</mx:dataProvider>
+			</mx:PopUpMenuButton>
+			<mx:PopUpMenuButton x="53" y="56" labelField="@label" id="pmb_sc_oi" width="238" label="{xmlModel.ingresos_especialidad.@agudeza_sc_oi}">
+				<mx:dataProvider>
+					<mx:XMLList xmlns="">
+					   	<item label="No percibe luz" value="No percibe luz" selectable="true"/>
+					   	<item label="Percibe luz" value="Percibe luz" selectable="false">
+					   		<item label="Buena proyección" value="Percibe luz / Buena proyección" selectable="true" />
+					   		<item label="Mala proyección" value="Percibe luz / Mala proyección" selectable="true" />
+					   	</item>
+					   	<item label="Bultos" value="Bultos" selectable="false">
+					   		<item label="30 cm" value="Bultos / 30 cm" selectable="true"/>
+					   		<item label="1 m" value="Bultos / 1 m" selectable="true"/>
+					   		<item label="2 m" value="Bultos / 2 m" selectable="true"/>
+					   		<item label="3 m" value="Bultos / 3 m" selectable="true"/>
+					   		<item label="4 m" value="Bultos / 4 m" selectable="true"/>
+					   		<item label="5 m" value="Bultos / 5 m" selectable="true"/>
+					   		<item label="6 m" value="Bultos / 6 m" selectable="true"/>
+					   	</item>
+					   	<item label="Cuenta dedos" value="Cuenta dedos" selectable="false">
+					   		<item label="30 cm" value="Cuenta dedos / 30 cm" selectable="true"/>
+					   		<item label="1 m" value="Cuenta dedos / 1 m" selectable="true"/>
+					   		<item label="2 m" value="Cuenta dedos / 2 m" selectable="true"/>
+					   		<item label="3 m" value="Cuenta dedos / 3 m" selectable="true"/>
+					   		<item label="4 m" value="Cuenta dedos / 4 m" selectable="true"/>
+					   		<item label="5 m" value="Cuenta dedos / 5 m" selectable="true"/>
+					   		<item label="6 m" value="Cuenta dedos / 6 m" selectable="true"/>
+					   	</item>
+					   	<item label="1/10" value="1/10" selectable="true"/>
+					   	<item label="2/10" value="2/10" selectable="true"/>
+					   	<item label="3/10" value="3/10" selectable="true"/>
+					   	<item label="4/10" value="4/10" selectable="true"/>
+					   	<item label="5/10" value="5/10" selectable="true"/>
+					   	<item label="6/10" value="6/10" selectable="true"/>
+					   	<item label="7/10" value="7/10" selectable="true"/>
+					   	<item label="8/10" value="8/10" selectable="true"/>
+					   	<item label="9/10" value="9/10" selectable="true"/>
+					   	<item label="10/10" value="10/10" selectable="true"/>
+					</mx:XMLList>
+				</mx:dataProvider>
+			</mx:PopUpMenuButton>
+			<mx:PopUpMenuButton x="53" y="112" labelField="@label" id="pmb_cc_od" width="238" label="{xmlModel.ingresos_especialidad.@agudeza_cc_od}">
+				<mx:dataProvider>
+					<mx:XMLList xmlns="">
+					   	<item label="No percibe luz" value="No percibe luz" selectable="true"/>
+					   	<item label="Percibe luz" value="Percibe luz" selectable="false">
+					   		<item label="Buena proyección" value="Percibe luz / Buena proyección" selectable="true" />
+					   		<item label="Mala proyección" value="Percibe luz / Mala proyección" selectable="true" />
+					   	</item>
+					   	<item label="Bultos" value="Bultos" selectable="false">
+					   		<item label="30 cm" value="Bultos / 30 cm" selectable="true"/>
+					   		<item label="1 m" value="Bultos / 1 m" selectable="true"/>
+					   		<item label="2 m" value="Bultos / 2 m" selectable="true"/>
+					   		<item label="3 m" value="Bultos / 3 m" selectable="true"/>
+					   		<item label="4 m" value="Bultos / 4 m" selectable="true"/>
+					   		<item label="5 m" value="Bultos / 5 m" selectable="true"/>
+					   		<item label="6 m" value="Bultos / 6 m" selectable="true"/>
+					   	</item>
+					   	<item label="Cuenta dedos" value="Cuenta dedos" selectable="false">
+					   		<item label="30 cm" value="Cuenta dedos / 30 cm" selectable="true"/>
+					   		<item label="1 m" value="Cuenta dedos / 1 m" selectable="true"/>
+					   		<item label="2 m" value="Cuenta dedos / 2 m" selectable="true"/>
+					   		<item label="3 m" value="Cuenta dedos / 3 m" selectable="true"/>
+					   		<item label="4 m" value="Cuenta dedos / 4 m" selectable="true"/>
+					   		<item label="5 m" value="Cuenta dedos / 5 m" selectable="true"/>
+					   		<item label="6 m" value="Cuenta dedos / 6 m" selectable="true"/>
+					   	</item>
+					   	<item label="1/10" value="1/10" selectable="true"/>
+					   	<item label="2/10" value="2/10" selectable="true"/>
+					   	<item label="3/10" value="3/10" selectable="true"/>
+					   	<item label="4/10" value="4/10" selectable="true"/>
+					   	<item label="5/10" value="5/10" selectable="true"/>
+					   	<item label="6/10" value="6/10" selectable="true"/>
+					   	<item label="7/10" value="7/10" selectable="true"/>
+					   	<item label="8/10" value="8/10" selectable="true"/>
+					   	<item label="9/10" value="9/10" selectable="true"/>
+					   	<item label="10/10" value="10/10" selectable="true"/>
+					</mx:XMLList>
+				</mx:dataProvider>
+			</mx:PopUpMenuButton>
+			<mx:PopUpMenuButton x="53" y="142" labelField="@label" id="pmb_cc_oi" width="238" label="{xmlModel.ingresos_especialidad.@agudeza_cc_oi}">
+				<mx:dataProvider>
+					<mx:XMLList xmlns="">
+					   	<item label="No percibe luz" value="No percibe luz" selectable="true"/>
+					   	<item label="Percibe luz" value="Percibe luz" selectable="false">
+					   		<item label="Buena proyección" value="Percibe luz / Buena proyección" selectable="true" />
+					   		<item label="Mala proyección" value="Percibe luz / Mala proyección" selectable="true" />
+					   	</item>
+					   	<item label="Bultos" value="Bultos" selectable="false">
+					   		<item label="30 cm" value="Bultos / 30 cm" selectable="true"/>
+					   		<item label="1 m" value="Bultos / 1 m" selectable="true"/>
+					   		<item label="2 m" value="Bultos / 2 m" selectable="true"/>
+					   		<item label="3 m" value="Bultos / 3 m" selectable="true"/>
+					   		<item label="4 m" value="Bultos / 4 m" selectable="true"/>
+					   		<item label="5 m" value="Bultos / 5 m" selectable="true"/>
+					   		<item label="6 m" value="Bultos / 6 m" selectable="true"/>
+					   	</item>
+					   	<item label="Cuenta dedos" value="Cuenta dedos" selectable="false">
+					   		<item label="30 cm" value="Cuenta dedos / 30 cm" selectable="true"/>
+					   		<item label="1 m" value="Cuenta dedos / 1 m" selectable="true"/>
+					   		<item label="2 m" value="Cuenta dedos / 2 m" selectable="true"/>
+					   		<item label="3 m" value="Cuenta dedos / 3 m" selectable="true"/>
+					   		<item label="4 m" value="Cuenta dedos / 4 m" selectable="true"/>
+					   		<item label="5 m" value="Cuenta dedos / 5 m" selectable="true"/>
+					   		<item label="6 m" value="Cuenta dedos / 6 m" selectable="true"/>
+					   	</item>
+					   	<item label="1/10" value="1/10" selectable="true"/>
+					   	<item label="2/10" value="2/10" selectable="true"/>
+					   	<item label="3/10" value="3/10" selectable="true"/>
+					   	<item label="4/10" value="4/10" selectable="true"/>
+					   	<item label="5/10" value="5/10" selectable="true"/>
+					   	<item label="6/10" value="6/10" selectable="true"/>
+					   	<item label="7/10" value="7/10" selectable="true"/>
+					   	<item label="8/10" value="8/10" selectable="true"/>
+					   	<item label="9/10" value="9/10" selectable="true"/>
+					   	<item label="10/10" value="10/10" selectable="true"/>
+					</mx:XMLList>
+				</mx:dataProvider>
+			</mx:PopUpMenuButton>
+		</mx:Canvas>
+		<mx:Canvas label="Refracción" width="100%" height="100%">
+			<mx:Label x="10" y="30" text="O.D.:"/>
+			<mx:Label x="13" y="60" text="O.I.:"/>
+			<mx:Label x="131" y="10" text="Cil."/>
+			<mx:Label x="209" y="10" text="Eje"/>
+			<mx:NumericStepper x="53" y="28" height="22" id="spnEsf_od" minimum="-25" maximum="25" stepSize="0.25" width="70" value="{xmlModel.ingresos_especialidad.@esf_od}"/>
+			<mx:NumericStepper x="131" y="28" height="22" id="spnCil_od" minimum="-7" maximum="7" stepSize="0.25" width="70" value="{xmlModel.ingresos_especialidad.@cil_od}"/>
+			<mx:NumericStepper x="209" y="28" height="22" id="spnEje_od" minimum="0" maximum="180" stepSize="1" width="70" value="{xmlModel.ingresos_especialidad.@eje_od}"/>
+			<mx:Label x="53" y="10" text="Esf."/>
+			<mx:NumericStepper x="53" y="58" height="22" id="spnEsf_oi" minimum="-25" maximum="25" stepSize="0.25" width="70" value="{xmlModel.ingresos_especialidad.@esf_oi}"/>
+			<mx:NumericStepper x="131" y="58" height="22" id="spnCil_oi" minimum="-7" maximum="7" stepSize="0.25" width="70" value="{xmlModel.ingresos_especialidad.@cil_oi}"/>
+			<mx:NumericStepper x="209" y="58" height="22" id="spnEje_oi" minimum="0" maximum="180" stepSize="1" width="70" value="{xmlModel.ingresos_especialidad.@eje_oi}"/>
+		</mx:Canvas>
+		<mx:Canvas label="P.I.O." width="100%" height="100%">
+			<mx:Label x="10" y="12" text="O.D.:"/>
+			<mx:Label x="13" y="42" text="O.I.:"/>
+			<mx:NumericStepper x="53" y="10" height="22" id="spnPio_od" value="{xmlModel.ingresos_especialidad.@pio_od}" minimum="1" maximum="60" stepSize="1"/>
+			<mx:NumericStepper x="53" y="40" height="22" id="spnPio_oi" value="{xmlModel.ingresos_especialidad.@pio_oi}" minimum="1" maximum="60" stepSize="1"/>
+		</mx:Canvas>
+		<mx:Canvas label="BIOMI." width="100%" height="100%">
+			<mx:Label x="10" y="12" text="O.D.:"/>
+			<mx:Label x="13" y="42" text="O.I.:"/>
+			<mx:TextInput id="txtBiomi_od" text="{xmlModel.ingresos_especialidad.@biomi_od}" x="53" y="10" width="251"/>
+			<mx:TextInput id="txtBiomi_oi" text="{xmlModel.ingresos_especialidad.@biomi_oi}" x="53" y="40" width="251"/>
+		</mx:Canvas>
+		<mx:Canvas label="F.O." width="100%" height="100%">
+			<mx:Label x="10" y="12" text="O.D.:"/>
+			<mx:Label x="13" y="42" text="O.I.:"/>
+			<mx:TextInput id="txtFo_od" text="{xmlModel.ingresos_especialidad.@fo_od}" x="53" y="10" width="251"/>
+			<mx:TextInput id="txtFo_oi" text="{xmlModel.ingresos_especialidad.@fo_oi}" x="53" y="40" width="251"/>
+		</mx:Canvas>
+		<mx:Canvas label="Diagnóstico" width="100%" height="100%">
+			<mx:Label x="10" y="10" text="O.D.:"/>
+			<mx:Label x="13" y="98" text="O.I.:"/>
+			<mx:TextArea id="txtDiagnostico_od" text="{xmlModel.ingresos_especialidad.@diagnostico_od}" x="53" y="9" width="390" height="80"/>
+			<mx:TextArea id="txtDiagnostico_oi" text="{xmlModel.ingresos_especialidad.@diagnostico_oi}" x="53" y="97" width="390" height="80"/>
+		</mx:Canvas>
+	</mx:ViewStack>
 	<mx:ControlBar horizontalAlign="right">
 		<mx:Label width="150" id="lblEstado" fontWeight="bold"/>
 		<mx:Button label="Cancelar Especialidad" id="btnCancelar" icon="@Embed(source='../../img/close.png')"/>

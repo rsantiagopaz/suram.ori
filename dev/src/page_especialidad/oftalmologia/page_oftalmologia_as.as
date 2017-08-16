@@ -1,13 +1,28 @@
+import flash.events.MouseEvent;
 
+import mx.collections.XMLListCollection;
 import mx.controls.Alert;
+import mx.events.ListEvent;
+import mx.events.MenuEvent;
+
 private var _xmlDatosPaciente : XML = <datospaciente></datospaciente>;
 
 public function Panel_creationComplete() : void
 {
 	btnConfirmar.addEventListener("click", btnConfirmar_click);
 	btnCancelar.addEventListener("click", btnCancelar_click);
+	
+	pmb_sc_od.addEventListener("itemClick", pmb_itemClick);
+	pmb_sc_oi.addEventListener("itemClick", pmb_itemClick);
+	pmb_cc_od.addEventListener("itemClick", pmb_itemClick);
+	pmb_cc_oi.addEventListener("itemClick", pmb_itemClick);
 }
 
+
+private function pmb_itemClick(evt: MenuEvent):void {
+	evt.target.label = evt.item.@value;
+}
+            
 
 public function fncInit():void
 {
@@ -17,9 +32,10 @@ public function fncInit():void
 	
 	lblEstado.text = '';
 	
-	//Alert.show(this.parentDocument.xmlDatosPaciente.toXMLString());
+	
+	
+	
 	xmlModel.ingresos_especialidad = this.parentDocument.xmlDatosPaciente.ingresos_especialidad.ingresos_especialidad;
-	//Alert.show("init");
 }
 
 
