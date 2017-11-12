@@ -1,11 +1,10 @@
 import flash.events.MouseEvent;
 
-import mx.collections.XMLListCollection;
 import mx.controls.Alert;
-import mx.events.ListEvent;
 import mx.events.MenuEvent;
 
 private var _xmlDatosPaciente : XML = <datospaciente></datospaciente>;
+
 
 public function Panel_creationComplete() : void
 {
@@ -20,7 +19,7 @@ public function Panel_creationComplete() : void
 
 
 private function pmb_itemClick(evt: MenuEvent):void {
-	evt.target.label = evt.item.@value;
+	if (evt.target.popUp.visible) evt.target.label = evt.item.@value;
 }
             
 
