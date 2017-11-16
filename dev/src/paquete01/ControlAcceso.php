@@ -44,11 +44,11 @@ include($SYSpathraiz."config.php");
    		$sql.="WHERE SYSusuario = BINARY '$SYSusuario' ";
    		$sql.="ORDER BY s.denominacion ";
 // echo $sql;
-		$result = mysql_query($sql);
+		$result = $mysqli->query($sql);
 	  	$xml = "<?xml version='1.0' encoding='UTF-8' ?>";
 	 	$xml.= "<xml>";
 	 	
-	 	if($row = mysql_fetch_array($result))
+	 	if($row = $result->fetch_array())
 	  	{
 	  		$id_area = $row['id_area'];
 	  		$xml.="<areaservicio area='".$row['area']."' id_area='".$row['id_area']."'>";
@@ -60,7 +60,7 @@ include($SYSpathraiz."config.php");
 	  			}
 	  			$xml.="<servicio id_area='".$row['id_area']."' id_oas_usuario='".$row['id_oas_usuario']."' servicio='".$row['servicio']."' />";	
 	  		
-	  		}while ($row = mysql_fetch_array($result));
+	  		}while ($row = $result->fetch_array());
 	  		$xml.="</areaservicio>";
 	  	}
 	  	$xml.= "</xml>";
@@ -96,11 +96,11 @@ include($SYSpathraiz."config.php");
 	// Verifico si el suario es válido
 	if (!empty($SYSusuario) AND !empty($SYSpassword))
 	{
-		$result = mysql_query("SELECT * FROM $salud._usuarios WHERE SYSusuario = BINARY '$SYSusuario' AND SYSpassword = MD5('$SYSpassword')");
+		$result = $mysqli->query("SELECT * FROM $salud._usuarios WHERE SYSusuario = BINARY '$SYSusuario' AND SYSpassword = MD5('$SYSpassword')");
 	  	// ---------------
-	  	$fila=mysql_fetch_array($result);
+	  	$fila=$result->fetch_array();
 	  
-	  	$num=mysql_num_rows($result);
+	  	$num=$result->num_rows;
 	  	if ($num==1)
 		{
 	         // Verifico si el usuario está activo es decir que "SYSusuario_estado = 1" 
@@ -116,25 +116,26 @@ include($SYSpathraiz."config.php");
 	         $sql.="WHERE $salud.oas_usuarios.id_oas_usuario='$id_oas_usuario' ";
 	
 	
-	         $result=@mysql_query($sql);		 
-	         $num=@mysql_numrows($result);
+	         $result=@$mysqli->query($sql);		 
+	         $num=@$result->num_rows;
 	         if ($num>=1)
     	     {
-				   $_SESSION['usuario']                             = mysql_result($result,0,'SYSusuario');
-		   		   $_SESSION['usuario_id']                             = mysql_result($result,0,'SYSusuario');
-				   $_SESSION['usuario_nombre']                         = mysql_result($result,0,'persona_nombre');
-				   $_SESSION['usuario_estado']                         = mysql_result($result,0,'SYSusuario_estado');
-				   $SYSusuario_estado =   mysql_result($result,0,'SYSusuario_estado');
+    	     	$aux = $result->fetch_array();
+				   $_SESSION['usuario']                             = $aux['SYSusuario'];
+		   		   $_SESSION['usuario_id']                             = $aux['SYSusuario'];
+				   $_SESSION['usuario_nombre']                         = $aux['persona_nombre'];
+				   $_SESSION['usuario_estado']                         = $aux['SYSusuario_estado'];
+				   $SYSusuario_estado =   $aux['SYSusuario_estado'];
 				   
-				   $_SESSION['usuario_organismo_id']                = mysql_result($result,0,'organismo_id');
-				   $_SESSION['usuario_organismo']                   = mysql_result($result,0,'organismo');
-				   $_SESSION['usuario_organismo_area_id']           = mysql_result($result,0,'organismo_area_id');
-				   $_SESSION['usuario_organismo_area']              = utf8_decode(mysql_result($result,0,'organismo_area'));
-				   $_SESSION['usuario_organismo_area_mesa_entrada'] = mysql_result($result,0,'organismo_area_mesa_entrada');
+				   $_SESSION['usuario_organismo_id']                = $aux['organismo_id'];
+				   $_SESSION['usuario_organismo']                   = $aux['organismo'];
+				   $_SESSION['usuario_organismo_area_id']           = $aux['organismo_area_id'];
+				   $_SESSION['usuario_organismo_area']              = utf8_decode($aux['organismo_area']);
+				   $_SESSION['usuario_organismo_area_mesa_entrada'] = $aux['organismo_area_mesa_entrada'];
 				   
-				   $_SESSION['usuario_servicio']              = mysql_result($result,0,'denominacion');
-				   $_SESSION['usuario_servicio_id'] = mysql_result($result,0,'id_servicio');
-				   $_SESSION['id_oas_usuario']              = mysql_result($result,0,'id_oas_usuario');
+				   $_SESSION['usuario_servicio']              = $aux['denominacion'];
+				   $_SESSION['usuario_servicio_id'] = $aux['id_servicio'];
+				   $_SESSION['id_oas_usuario']              = $aux['id_oas_usuario'];
 				   
 				   if ($SYSusuario_estado==1)
 				   {
@@ -144,12 +145,12 @@ include($SYSpathraiz."config.php");
 				        $sql.="WHERE $salud.sistemas_perfiles_usuarios_oas.id_oas_usuario='$id_oas_usuario' ";
 				        $sql.="AND $salud._sistemas_usuarios.sistema_id='$SYSsistema_id' ";
 				        
-				        $result = mysql_query($sql);
-				        $nr = mysql_num_rows($result);
+				        $result = $mysqli->query($sql);
+				        $nr = $result->num_rows;
 				        if ($nr>0)
 				        {
 					        $SYSsistemas_perfiles_usuario = array();
-					        while ($row = mysql_fetch_array($result))
+					        while ($row = $result->fetch_array())
 					        {
 					        	$SYSsistemas_perfiles_usuario[]=$row["perfil_id"];
 					        }
@@ -167,7 +168,7 @@ include($SYSpathraiz."config.php");
 								$SYSsesionhora  = date('H:i:s');
 								// Ingreso en tabla _sesiones los campos _sessionid y SYSusuario
 								$ip = $_SERVER["REMOTE_ADDR"];
-								mysql_query ("INSERT INTO $salud._sesiones 
+								$mysqli->query ("INSERT INTO $salud._sesiones 
 									   (
 											 _sessionid,
 											 SYSusuario,
@@ -186,8 +187,8 @@ include($SYSpathraiz."config.php");
 											 '$ip'
 											)");
 										 // Verifico si se grabaron los datos
-								$result=mysql_query("SELECT * FROM $salud._sesiones WHERE _sessionid='$_sessionid' AND SYSusuario='$SYSusuario'");
-								$num=mysql_numrows($result);
+								$result=$mysqli->query("SELECT * FROM $salud._sesiones WHERE _sessionid='$_sessionid' AND SYSusuario='$SYSusuario'");
+								$num=$result->num_rows;
 								if ($num<=0)
 								{
 								  $_mensaje.='No se pudo grabar la sesión y el usuario en tabla _sesiones. Contáctese con el administrador del sistema. ';
@@ -331,7 +332,7 @@ include($SYSpathraiz."config.php");
 		$_sessionid = $_SESSION['SYSsesion_id'];
 		$_fechaactual = date('Y-m-d');
 		$_horaactual  = date('H:i:s');
-		mysql_query ("UPDATE _sesiones SET 
+		$mysqli->query ("UPDATE _sesiones SET 
 				  SYSsesionfecha_cierre = '$_fechaactual' ,
 				  SYSsesionhora_cierre  = '$_horaactual'
 				  WHERE _sessionid='$_sessionid'"); 
@@ -446,8 +447,8 @@ include($SYSpathraiz."config.php");
 	if (!empty($SYSusuario) AND !empty($SYSpassword))
 	 {
 	  // Modificado el 3/5/2007 para uso de MD5
-	  $result=mysql_query("SELECT * FROM _usuarios WHERE SYSusuario = BINARY '$SYSusuario' AND SYSpassword = MD5('$SYSpassword')");
-	  $num=mysql_numrows($result);
+	  $result=$mysqli->query("SELECT * FROM _usuarios WHERE SYSusuario = BINARY '$SYSusuario' AND SYSpassword = MD5('$SYSpassword')");
+	  $num=$result->num_rows;
 	  if ($num==1)
 		   {
 			if ($SYSpassword_nuevo1==$SYSpassword_nuevo2)
@@ -490,18 +491,18 @@ include($SYSpathraiz."config.php");
 	 else
 	  {
 	/* Antes del 3/5/2007
-		mysql_query ("UPDATE _usuarios SET 
+		$mysqli->query ("UPDATE _usuarios SET 
 				SYSpassword='$SYSpassword_nuevo1'
 			   WHERE SYSusuario='$SYSusuario'"); 
 	*/
 	 // Desde el 3/5/2007
-		mysql_query ("UPDATE _usuarios SET 
+		$mysqli->query ("UPDATE _usuarios SET 
 				SYSpassword=MD5('$SYSpassword_nuevo1') 
 			   WHERE SYSusuario= BINARY '$SYSusuario'"); 
 	 // ---------------------------------------------		   
-	   if (mysql_errno()>0)	
+	   if ($mysqli->errno>0)	
 		 {
-		  $error = "Error en BD: ".mysql_errno().": ".mysql_error();	 
+		  $error = "Error en BD: ".$mysqli->errno.": ".$mysqli->error;	 
 		 } 
 		else     
 		 {

@@ -22,18 +22,18 @@ include('../config.php');
 	   $HTTP_SESSION_VARS['_sessionid']=$codigo;
 	   $_sessionid=$HTTP_SESSION_VARS['_sessionid'];
 	   //print 'Sesion: '.$_sessionid;
-       $result=mysql_query("SELECT _sessionid FROM _sesiones WHERE _sessionid = '$_sessionid' ");
-       $num=mysql_numrows($result);
+       $result=$mysqli->query("SELECT _sessionid FROM _sesiones WHERE _sessionid = '$_sessionid' ");
+       $num=$result->num_rows;
        if ($num<=0)
          $terminar="SI";
        // Fin veo
       }      
-// Fin Creacion de id de sesión
+// Fin Creacion de id de sesiï¿½n
 
 
 
 /*
-// Destruyo la sesión
+// Destruyo la sesiï¿½n
 session_start();
 $_anterior=session_id();
 session_destroy();
@@ -46,7 +46,7 @@ print $_actual;
 */
 
 
-// Parámetros de entrada
+// Parï¿½metros de entrada
 if (isset($_REQUEST["SYSpatharchivo"]))
   $SYSpatharchivo = $_REQUEST["SYSpatharchivo"];
  else

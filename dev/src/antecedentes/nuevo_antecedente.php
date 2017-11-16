@@ -28,7 +28,7 @@ switch ($_REQUEST['rutina'])
 		$sql.= "WHERE antecedente LIKE '%$antecedente%' ";
 		$sql.= "ORDER BY antecedente ";
 		
-		$SELECT = mysql_query($sql);
+		$SELECT = $mysqli->query($sql);
 		toXML($xml, $sql, "antecedente");
 		header('Content-Type: text/xml');
 		echo $xml->asXML();
@@ -40,16 +40,16 @@ switch ($_REQUEST['rutina'])
 	    $errores="";	
 	    $xmlDpto= "<tiposantecedentes>";
 	    $query = "SELECT * FROM $salud.027_tipo_antec ORDER BY descripcion";
-	    $result = mysql_query($query);
-	    if (mysql_errno() > 0) {
-	    	$errores.="Error devuelto por la Base de Datos: ".mysql_errno()." ".mysql_error()."\n";
+	    $result = $mysqli->query($query);
+	    if ($mysqli->errno > 0) {
+	    	$errores.="Error devuelto por la Base de Datos: ".$mysqli->errno." ".$mysqli->error."\n";
 	    } else {          
 		    $xmlDpto.= "<tipoantecedente>";
 		    $xmlDpto.= "<id_tipo_antec></id_tipo_antec>";
 		    $xmlDpto.= "<descripcion></descripcion>";
 		    $xmlDpto.= "</tipoantecedente>";
 	
-	        while($row = mysql_fetch_array($result))
+	        while($row = $result->fetch_array())
 	        {	
 	        	$xmlDpto.= "<tipoantecedente>";
 	            $xmlDpto.= "<id_tipo_antec>".$row["id_tipo_antec"]."</id_tipo_antec>";
@@ -66,16 +66,16 @@ switch ($_REQUEST['rutina'])
 	    $errores="";	
 	    $xmlDpto= "<antecedentes>";
 	    $query = "SELECT * FROM $salud.027_antecedentes WHERE id_tipo_antec = '".$_REQUEST['id_tipo_antec']."' ORDER BY antecedente";
-	    $result = mysql_query($query);
-	    if (mysql_errno() > 0) {
-	    	$errores.="Error devuelto por la Base de Datos: ".mysql_errno()." ".mysql_error()."\n";
+	    $result = $mysqli->query($query);
+	    if ($mysqli->errno > 0) {
+	    	$errores.="Error devuelto por la Base de Datos: ".$mysqli->errno." ".$mysqli->error."\n";
 	    } else {          
 		    $xmlDpto.= "<antecedente>";
 		    $xmlDpto.= "<id_antecedente></id_antecedente>";
 		    $xmlDpto.= "<antecedente></antecedente>";
 		    $xmlDpto.= "</antecedente>";
 	
-	        while($row = mysql_fetch_array($result))
+	        while($row = $result->fetch_array())
 	        {	
 	        	$xmlDpto.= "<antecedente>";
 	            $xmlDpto.= "<id_antecedente>".$row["id_antecedente"]."</id_antecedente>";

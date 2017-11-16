@@ -82,7 +82,7 @@ print "Variable areas = $_variable_donde_van_las_areas";
 // ------------------------------------------------------
 
 
-// Opciones de navegación.
+// Opciones de navegaciï¿½n.
 
 if (empty($desde))
  $desde=0;
@@ -90,7 +90,7 @@ if (empty($desde))
 //if (empty($maxmostrar))
  $maxmostrar=20;
 
-// fin de opciones de navegación
+// fin de opciones de navegaciï¿½n
 
 // Determino tipo de consulta ---------------------------------------------
 
@@ -113,10 +113,10 @@ switch($_tipoconsulta)
  {
   case '1':
    // Lista por nombre de organismo
-   $result=mysql_query("SELECT * FROM _organismos                              
+   $result=$mysqli->query("SELECT * FROM _organismos                              
                               WHERE organismo_tipo='$organismo_tipo'  AND estado='1' AND organismo LIKE '%$organismo%'"); 
-   $total=mysql_numrows($result);
-   $result=mysql_query("SELECT * FROM _organismos
+   $total=$result->num_rows;
+   $result=$mysqli->query("SELECT * FROM _organismos
                               WHERE organismo_tipo='$organismo_tipo'  AND estado='1' AND organismo LIKE '%$organismo%'
 						      LIMIT $desde,$maxmostrar");
    $subtitulo='(Organismo: '.$organismo.')';
@@ -125,10 +125,10 @@ switch($_tipoconsulta)
 
   case '2':
    // Lista por id dele organismo
-   $result=mysql_query("SELECT organismo_id FROM _organismos                              
+   $result=$mysqli->query("SELECT organismo_id FROM _organismos                              
                               WHERE organismo_id = '$organismo_id'  AND estado='1' "); 
-   $total=mysql_numrows($result);
-   $result=mysql_query("SELECT * FROM _organismos
+   $total=$result->num_rows;
+   $result=$mysqli->query("SELECT * FROM _organismos
                               WHERE organismo_id = '$organismo_id'  AND estado='1' 
 						      LIMIT $desde,$maxmostrar");
    $subtitulo='(Id del Organismo: '.$organismo_id.')';
@@ -137,9 +137,9 @@ switch($_tipoconsulta)
 
  }
 
-if (mysql_errno()>0)
+if ($mysqli->errno>0)
  {
-  print '<br>Error: '.mysql_errno().": ".mysql_error()."<BR><BR>";
+  print '<br>Error: '.$mysqli->errno.": ".$mysqli->error."<BR><BR>";
  }
 // Fin: Determino tipo de consulta ------------------------------------------------
 
@@ -177,7 +177,7 @@ if ($total>0)
   else
    print '<br><center><font color="#FF0000" size="2" face="Arial"><b>'.$total.'</b> organismos</font></center>';
 
-if ($row=mysql_fetch_array($result) )
+if ($row=$result->fetch_array() )
  {
 
    $contador=0;
@@ -255,14 +255,14 @@ if ($row=mysql_fetch_array($result) )
 
 
   }
- while ($row=mysql_fetch_array($result));
+ while ($row=$result->fetch_array());
  print '</table>';
  print '</center>';
 
  if ($contador>0)
   print '<script>boton1.focus();</script>';
 
- // Botones de navegación.
+ // Botones de navegaciï¿½n.
 
  print '<center>';
 
@@ -280,7 +280,7 @@ if ($row=mysql_fetch_array($result) )
    print '<b>[ <a href="organismo_consultar2.php?desde='.($desde+$maxmostrar).'&maxmostrar='.$maxmostrar.$AuxLink.'"><font face="Arial" color="#800080" size="2">Siguiente</font></a> ] </b>';
   }
 
- // Páginas
+ // Pï¿½ginas
  $linkpaginas="";
  $pagina=0;
  for ($i=1;$i<=$total;$i=$i+$maxmostrar) 
@@ -308,7 +308,7 @@ if ($row=mysql_fetch_array($result) )
 
  print '<center><font color="#800080" face="Arial" size="2">Visualizando de '.$maxmostrar.' en '.$maxmostrar.'</b><br>';
  print '</center>';
- print '<center>Ir a página: '.$linkpaginas.'<br></font></center>';
+ print '<center>Ir a pï¿½gina: '.$linkpaginas.'<br></font></center>';
 
  print '<br><br>';
 
@@ -316,7 +316,7 @@ if ($row=mysql_fetch_array($result) )
  }
  else
  {
-  print '<br><br><center><font face="arial" size="2" color="#FF0000"><b>¡ No se encontraron registros que respondan a la consulta !</b></font></center><br><br>';
+  print '<br><br><center><font face="arial" size="2" color="#FF0000"><b>ï¿½ No se encontraron registros que respondan a la consulta !</b></font></center><br><br>';
  }
 
 

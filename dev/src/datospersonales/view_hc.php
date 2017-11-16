@@ -58,9 +58,9 @@ class PDF extends PDF_MC_Table
 						
 		$query = "SELECT id_persona FROM ingresos ";
 		$query.="WHERE id_ingreso='".$_REQUEST['id_ingreso']."'";
-		$result = mysql_query($query);
+		$result = $GLOBALS["mysqli"]->query($query);
 		
-		if ($row = mysql_fetch_array($result)){						
+		if ($row = $result->fetch_array()){						
 			$id_persona = $row['id_persona'];
 		
 			$sql="SELECT persona_id 'id_persona',persona_nombre 'apeynom', CASE p.persona_tipodoc WHEN 'D' THEN 'DNI' WHEN 'C' THEN 'LC' WHEN 'E' THEN 'LE' WHEN 'F' THEN 'CI' END as 'tipo_doc', persona_dni 'nrodoc', IF( persona_sexo = 'M', 'MASCULINO', 'FEMENINO' ) as 'sexo', ";
@@ -182,12 +182,12 @@ $sql.="FROM ingresos JOIN $salud._organismos_areas USING(organismo_area_id) ";
 $sql.="WHERE id_persona='$pdf->id_persona' ";
 $sql.="ORDER BY fecha_consulta_ingreso DESC";
 
-$result = mysql_query($sql);
+$result = $GLOBALS["mysqli"]->query($sql);
 
 $pdf->SetFont('','B');
 $pdf->Cell(0,6,'INGRESOS',0,1,'C');
 
-while ($row = mysql_fetch_array($result)) {	
+while ($row = $result->fetch_array()) {	
 	$pdf->SetWidths(array(30,35));
 	$pdf->SetFont('','B');
 	$pdf->Row(array('Establecimiento',$row['establecimiento']));
@@ -205,9 +205,9 @@ while ($row = mysql_fetch_array($result)) {
 	$sql.="WHERE id_ingreso='".$row['id_ingreso']."' ";
 	$sql.="ORDER BY fecha_movimiento_ingreso";
 	
-	$result2 = mysql_query($sql);
+	$result2 = $GLOBALS["mysqli"]->query($sql);
 				
-	while($row2 = mysql_fetch_array($result2)) {
+	while($row2 = $result2->fetch_array()) {
 		$pdf->SetWidths(array(30,45,45,30,30));
 		$pdf->Row(array('','Servicio: ' . $row2['servicio'],'Diagnostico Principal: ' . $row2['diagnostico'],
 						'Fecha Ingreso: ' . $row2['fecha_movimiento_ingreso'],'Fecha Egreso: ' . $row2['fecha_egreso']));

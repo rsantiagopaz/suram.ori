@@ -42,7 +42,7 @@ $_variable        = $_REQUEST["_variable"];
 
 $total=0;
 
-// Opciones de navegación.
+// Opciones de navegaciï¿½n.
 
 if (empty($desde))
  $desde=0;
@@ -50,7 +50,7 @@ if (empty($desde))
 //if (empty($maxmostrar))
  $maxmostrar=20;
 
-// fin de opciones de navegación
+// fin de opciones de navegaciï¿½n
 
 
 
@@ -71,13 +71,13 @@ if (empty($_tipoconsulta))
 		 }
 		else
 	     {
-		  // Consulta persona jurídica por nombre
+		  // Consulta persona jurï¿½dica por nombre
 		  $_tipoconsulta=5;
 		 }
 	   if (strlen($persona_nombre)<3)
 	    {
 		 $_tipoconsulta=0;
-		 $_mensaje.='<br>¡ Debe escribir más de 2 caracteres en el nombre !';
+		 $_mensaje.='<br>ï¿½ Debe escribir mï¿½s de 2 caracteres en el nombre !';
 		}
 		 
 	  }
@@ -92,7 +92,7 @@ if (empty($_tipoconsulta))
 		 }
 		else
 	     {
-		  // Consulta persona jurídica por cuit
+		  // Consulta persona jurï¿½dica por cuit
 		  $_tipoconsulta=7;
 		 }
 	  }
@@ -109,22 +109,22 @@ switch($_tipoconsulta)
   case '1':
    // Lista TODO
    //include('persona_consultar01.inc');
-   $result=mysql_query("SELECT persona_id FROM _personas"); 
-   $total=mysql_numrows($result);
-   $result=mysql_query("SELECT * FROM _personas
+   $result=$mysqli->query("SELECT persona_id FROM _personas"); 
+   $total=$result->num_rows;
+   $result=$mysqli->query("SELECT * FROM _personas
 						      LIMIT $desde,$maxmostrar");
    $subtitulo='(TODAS LAS PERSONAS FISICAS Y JURIDICAS)';
    break;
 
   case '2':
-   // Lista personas Físicas
+   // Lista personas Fï¿½sicas
    //include('persona_consultar02.inc');
-   $result=mysql_query("SELECT persona_id FROM _personas
+   $result=$mysqli->query("SELECT persona_id FROM _personas
                               WHERE persona_tipo='F'"); 
 
-   $total=mysql_numrows($result);
+   $total=$result->num_rows;
 
-   $result=mysql_query("SELECT * FROM _personas
+   $result=$mysqli->query("SELECT * FROM _personas
                               WHERE persona_tipo='F' 
 	                          ORDER BY persona_nombre
 						      LIMIT $desde,$maxmostrar");
@@ -133,13 +133,13 @@ switch($_tipoconsulta)
    break;
 
   case '3':
-   // Lista personas Jurídicas
-   $result=mysql_query("SELECT * FROM _personas
+   // Lista personas Jurï¿½dicas
+   $result=$mysqli->query("SELECT * FROM _personas
                               WHERE persona_tipo='J'    
                        ");
-   $total=mysql_numrows($result);
+   $total=$result->num_rows;
 
-   $result=mysql_query("SELECT * FROM _personas
+   $result=$mysqli->query("SELECT * FROM _personas
                               WHERE persona_tipo='J' 
 	                          ORDER BY persona_nombre
 						      LIMIT $desde,$maxmostrar");
@@ -148,42 +148,42 @@ switch($_tipoconsulta)
    break;
 
   case '4':
-   // Busca persona Física ingresada en variable $persona_nombre
-   $result=mysql_query("SELECT * FROM _personas
+   // Busca persona Fï¿½sica ingresada en variable $persona_nombre
+   $result=$mysqli->query("SELECT * FROM _personas
                               WHERE persona_tipo='F'  AND persona_nombre LIKE '%$persona_nombre%'     
                        ");
-   $total=mysql_numrows($result);
+   $total=$result->num_rows;
 
-   $result=mysql_query("SELECT * FROM _personas
+   $result=$mysqli->query("SELECT * FROM _personas
                               WHERE persona_tipo='F'  AND persona_nombre LIKE '%$persona_nombre%'  
 	                          ORDER BY persona_nombre
 						      LIMIT $desde,$maxmostrar");
-   $subtitulo='(Persona Física consultada: '.$persona_nombre.')';
+   $subtitulo='(Persona Fï¿½sica consultada: '.$persona_nombre.')';
    break;
 
   case '5':
-   // Busca persona Jurídica ingresada en variable $persona_nombre
-   $result=mysql_query("SELECT * FROM _personas
+   // Busca persona Jurï¿½dica ingresada en variable $persona_nombre
+   $result=$mysqli->query("SELECT * FROM _personas
                                  WHERE persona_tipo='J'  AND persona_nombre LIKE '%$persona_nombre%'
                        ");
-   $total=mysql_numrows($result);
+   $total=$result->num_rows;
 
-   $result=mysql_query("SELECT * FROM _personas
+   $result=$mysqli->query("SELECT * FROM _personas
                               WHERE persona_tipo='J'  AND persona_nombre LIKE '%$persona_nombre%'
 	                          ORDER BY persona_nombre
 						      LIMIT $desde,$maxmostrar");
-   $subtitulo='(Persona Jurídica consultada: '.$persona_nombre.')';
+   $subtitulo='(Persona Jurï¿½dica consultada: '.$persona_nombre.')';
    
    break;
 
   case '6':
    // Consulta persona fisica por dni
-   $result=mysql_query("SELECT * FROM _personas
+   $result=$mysqli->query("SELECT * FROM _personas
                               WHERE persona_tipo='F'  AND persona_dni ='$persona_dni_cuit'   
                        ");
-   $total=mysql_numrows($result);
+   $total=$result->num_rows;
 
-   $result=mysql_query("SELECT * FROM _personas
+   $result=$mysqli->query("SELECT * FROM _personas
                               WHERE persona_tipo='F'  AND persona_dni ='$persona_dni_cuit'
 	                          ORDER BY persona_nombre
 						      LIMIT $desde,$maxmostrar");
@@ -194,11 +194,11 @@ switch($_tipoconsulta)
 
   case '7':
     // Consulta persona juridica por cuit
-   $result=mysql_query("SELECT * FROM _personas
+   $result=$mysqli->query("SELECT * FROM _personas
                           WHERE persona_tipo='J'  AND persona_cuit ='$persona_dni_cuit'");
-   $total=mysql_numrows($result);
+   $total=$result->numrows;
 
-   $result=mysql_query("SELECT * FROM _personas
+   $result=$mysqli->query("SELECT * FROM _personas
                               WHERE persona_tipo='J'  AND persona_cuit ='$persona_dni_cuit'
 	                          ORDER BY persona_nombre
 						      LIMIT $desde,$maxmostrar");
@@ -208,9 +208,9 @@ switch($_tipoconsulta)
 
  }
 
-if (mysql_errno()>0)
+if ($mysqli->errno>0)
  {
-  print '<br>Error: '.mysql_errno().": ".mysql_error()."<BR><BR>";
+  print '<br>Error: '.$mysqli->errno.": ".$mysqli->error."<BR><BR>";
  }
 // Fin: Determino tipo de consulta ------------------------------------------------
 
@@ -248,7 +248,7 @@ if ($total>0)
   else
    print '<br><center><font color="#FF0000" size="2" face="Arial"><b>'.$total.'</b> personas</font></center>';
 
-if ($row=mysql_fetch_array($result) )
+if ($row=$result->fetch_array() )
  {
 
    $contador=0;
@@ -340,7 +340,7 @@ if ($row=mysql_fetch_array($result) )
       print '<a href="licitacion_agregar_modificar_form.php?numero='.$row["numero"].'&accion=MODIFICAR">Editar</a> ';
 	  
       // Muestro link "Quitar"   
-      $AuxPregunta="'¿ Está seguro de QUITAR Licitación Nº ".$row["numero"].' ('.$row["proyecto_nombre"].") ?'";
+      $AuxPregunta="'ï¿½ Estï¿½ seguro de QUITAR Licitaciï¿½n Nï¿½ ".$row["numero"].' ('.$row["proyecto_nombre"].") ?'";
       $AuxUrl="'".'licitacion_quitar.php?numero='.$row["numero"]."'";
       $AuxUrl2="'".'persona_consultar.php?_accion=MQ'."'";
 
@@ -355,13 +355,13 @@ if ($row=mysql_fetch_array($result) )
    print '</tr>';
 
   }
- while ($row=mysql_fetch_array($result));
+ while ($row=$result->fetch_array());
  print '</table>';
  print '</center>';
 
 
 
- // Botones de navegación.
+ // Botones de navegaciï¿½n.
 
  print '<center>';
 
@@ -379,7 +379,7 @@ if ($row=mysql_fetch_array($result) )
    print '<b>[ <a href="persona_consultar.php?desde='.($desde+$maxmostrar).'&maxmostrar='.$maxmostrar.$AuxLink.'"><font face="Arial" color="#800080" size="2">Siguiente</font></a> ] </b>';
   }
 
- // Páginas
+ // Pï¿½ginas
  $linkpaginas="";
  $pagina=0;
  for ($i=1;$i<=$total;$i=$i+$maxmostrar) 
@@ -407,7 +407,7 @@ if ($row=mysql_fetch_array($result) )
 
  print '<center><font color="#000080" face="Arial" size="2">Visualizando de '.$maxmostrar.' en '.$maxmostrar.'</b><br>';
  print '</center>';
- print '<center>Ir a página: '.$linkpaginas.'<br></font></center>';
+ print '<center>Ir a pï¿½gina: '.$linkpaginas.'<br></font></center>';
 
  print '<br><br>';
 
@@ -415,7 +415,7 @@ if ($row=mysql_fetch_array($result) )
  }
  else
  {
-  print '<br><br><center><font face="arial" size="2" color="#FF0000"><b>¡ No se encontraron registros que respondan a la consulta !</b></font></center><br><br>';
+  print '<br><br><center><font face="arial" size="2" color="#FF0000"><b>ï¿½ No se encontraron registros que respondan a la consulta !</b></font></center><br><br>';
  }
 
 

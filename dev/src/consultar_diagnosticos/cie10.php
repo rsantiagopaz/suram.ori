@@ -11,7 +11,7 @@ switch ($_REQUEST['rutina'])
 		$sql.= "WHERE CONCAT(cod_4,' - ',descripcion4) LIKE '%$filter%' ";
 		$sql.= "ORDER BY descripcion4 ";
 		
-		$SELECT = mysql_query($sql);
+		$SELECT = $mysqli->query($sql);
 		toXML($xml, $sql, "diagnostico");
 		header('Content-Type: text/xml');
 		echo $xml->asXML();

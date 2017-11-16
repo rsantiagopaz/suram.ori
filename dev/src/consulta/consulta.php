@@ -45,9 +45,9 @@ switch ($_REQUEST['rutina'])
 		
 		
 		$sql = "SELECT * FROM ingresos_especialidad WHERE id_ingreso=" . $id_ingreso;
-		$rs = mysql_query($sql);
-		if (mysql_num_rows($rs) > 0) {
-			$row = mysql_fetch_object($rs);
+		$rs = $mysqli->query($sql);
+		if ($rs->num_rows > 0) {
+			$row = $rs->fetch_object();
 			
 			$nodo = new SimpleXMLElement($row->json);
 		} else {
@@ -106,9 +106,9 @@ switch ($_REQUEST['rutina'])
 		$sql = "SELECT id_persona ";
 		$sql.="FROM ingresos i ";
 		$sql.="WHERE i.id_ingreso='$id_ingreso' ";
-		$result = mysql_query($sql);
+		$result = $mysqli->query($sql);
 		
-		if ($row = mysql_fetch_array($result)){		
+		if ($row = $result->fetch_array()){		
 			$id_persona = $row['id_persona'];
 
 			$sql="SELECT persona_id 'id_persona',persona_nombre 'apeynom', CASE p.persona_tipodoc WHEN 'D' THEN 'DNI' WHEN 'C' THEN 'LC' WHEN 'E' THEN 'LE' WHEN 'F' THEN 'CI' END as 'tipo_doc', persona_dni 'nrodoc', IF( persona_sexo = 'M', 'MASCULINO', 'FEMENINO' ) as 'sexo', ";		
@@ -190,7 +190,7 @@ switch ($_REQUEST['rutina'])
 			$json = $xml_especialidad->asXML();
 			$sql = "INSERT ingresos_especialidad SET id_ingreso='" . $xml_datosconsulta->id_ingreso . "', id_especialidad='" . $xml_especialidad->ingresos_especialidad['id_especialidad'] . "', json='" . $json . "'";
 			$sql.= " ON DUPLICATE KEY UPDATE id_especialidad='" . $xml_especialidad->ingresos_especialidad['id_especialidad'] . "', json='" . $json . "'";
-			mysql_query($sql);
+			$mysqli->query($sql);
 		}
 
 		
@@ -235,8 +235,8 @@ switch ($_REQUEST['rutina'])
 		$sql.="FROM ingresos_movimientos ";
 		$sql.="INNER JOIN ingresos USING(id_ingreso) ";
 		$sql.="WHERE id_ingreso='".$xml_datosconsulta->id_ingreso."' ";
-		$row = mysql_query($sql);
-		if ($rs = mysql_fetch_array($row)){
+		$row = $mysqli->query($sql);
+		if ($rs = $row->fetch_array()){
 			$id_ingreso_movimiento = $rs['id_ingreso_movimiento'];	
 			//elimino diagnosticos
 			if($xml_diagnosticos){
@@ -264,7 +264,7 @@ switch ($_REQUEST['rutina'])
     		$sql.="id_area_servicio_ingreso='".$_SESSION['usuario_servicio_id']."', ";
     		$sql.="id_ingreso='".$xml_datosconsulta->id_ingreso."' ";
     		toXML($xml2, $sql, "ingreso_movimiento");    		
-    		$id_ingreso_movimiento = mysql_insert_id();
+    		$id_ingreso_movimiento = $mysqli->insert_id;
 		}
 		
 		if($xml_diagnosticos){
@@ -328,8 +328,8 @@ switch ($_REQUEST['rutina'])
 	
 	case 'leer_especialidad':{
 		$sql="SELECT id_especialidad FROM _servicios_especialidades WHERE id_servicio=" . $_REQUEST["id_servicio"];
-		$rs = mysql_query($sql);
-		$row = mysql_fetch_object($rs);
+		$rs = $mysqli->query($sql);
+		$row = $rs->fetch_object();
 		
 		echo $row->id_especialidad;
 		break;

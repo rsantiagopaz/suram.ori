@@ -1,12 +1,16 @@
 <?php
+
+$aux = new mysqli_driver;
+$aux->report_mode = MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT;
+
 /*
    $SERVIDOR = "localhost";
    $USUARIO  = "root";
    $PASSWORD = "";
    $BASE     = "suram";
-   $link = @mysql_connect($SERVIDOR, $USUARIO, $PASSWORD);
-   @mysql_select_db($BASE, $link);
-   mysql_query("SET NAMES 'utf8'");
+   $mysqli = new mysqli($SERVIDOR, $USUARIO, $PASSWORD, $BASE);
+   $mysqli->query("SET NAMES 'utf8'");
+   $GLOBALS["mysqli"] = $mysqli;
    
    $salud = "salud1";
    $suram = "suram";
@@ -18,9 +22,9 @@
    $USUARIO  = "root";
    $PASSWORD = "";
    $BASE     = "suram";
-   $link = @mysql_connect($SERVIDOR, $USUARIO, $PASSWORD);
-   @mysql_select_db($BASE, $link);
-   mysql_query("SET NAMES 'utf8'");
+   $mysqli = new mysqli($SERVIDOR, $USUARIO, $PASSWORD, $BASE);
+   $mysqli->query("SET NAMES 'utf8'");
+   $GLOBALS["mysqli"] = $mysqli;
    
    $salud = "salud1";
    $suram = "suram";

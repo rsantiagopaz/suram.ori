@@ -37,34 +37,36 @@ $id_oas_usuario = $_SESSION['id_oas_usuario'];
 if (empty($_sessionid))
 {
    $_acceso='NO';
-   $_mensaje='¡ NO EXISTE SESION (si el mensaje persiste, comuníquelo al administrador de sistemas) !';
+   $_mensaje='ï¿½ NO EXISTE SESION (si el mensaje persiste, comunï¿½quelo al administrador de sistemas) !';
    $_login ='SI';
 }
 else
 { 
-   $result=mysql_query("SELECT * FROM $salud._sesiones WHERE _sessionid='$_sessionid'");
-   $num=mysql_numrows($result);
+   $result=$mysqli->query("SELECT * FROM $salud._sesiones WHERE _sessionid='$_sessionid'");
+   $num=$result->num_rows;
    $_acceso='SI';
    $_login='NO';
    if ($num<=0)
    {
       $_acceso='NO';
-      $_mensaje='¡ NO SE ENCONTRO SESION: '.$_sessionid.' (es probable que UD. no haya ingresado sus datos de acceso aún) !';
+      $_mensaje='ï¿½ NO SE ENCONTRO SESION: '.$_sessionid.' (es probable que UD. no haya ingresado sus datos de acceso aï¿½n) !';
       $_login ='SI';
    }
    else
    {
-      $SYSusuario            = mysql_result($result,0,'SYSusuario');
-	  $SYSsesiondetalle      = mysql_result($result,0,'SYSsesiondetalle');
-	  $SYSsesionfecha_cierre = mysql_result($result,0,'SYSsesionfecha_cierre');
-	  $SYSsesionhora_cierre  = mysql_result($result,0,'SYSsesionhora_cierre');
-	  $SYSsesionfecha_ultimo = mysql_result($result,0,'SYSsesionfecha_ultimo');
-	  $SYSsesionhora_ultimo  = mysql_result($result,0,'SYSsesionhora_ultimo');
+   	$aux = $result->fetch_array();
+   	
+      $SYSusuario            = $aux['SYSusuario'];
+	  $SYSsesiondetalle      = $aux['SYSsesiondetalle'];
+	  $SYSsesionfecha_cierre = $aux['SYSsesionfecha_cierre'];
+	  $SYSsesionhora_cierre  = $aux['SYSsesionhora_cierre'];
+	  $SYSsesionfecha_ultimo = $aux['SYSsesionfecha_ultimo'];
+	  $SYSsesionhora_ultimo  = $aux['SYSsesionhora_ultimo'];
 		
 	  if (empty($SYSusuario))
 	  {
 		$_acceso='NO';
-		$_mensaje='¡ NO SE ENCONTRO EL USUARIO VINCULADO A LA SESION: '.$_sessionid.' !';
+		$_mensaje='ï¿½ NO SE ENCONTRO EL USUARIO VINCULADO A LA SESION: '.$_sessionid.' !';
       } 
 	  else
 	  {
@@ -78,50 +80,52 @@ else
          $sql.="INNER JOIN $salud._personas p ON p.persona_id=u.id_persona ";
          $sql.="WHERE $salud.oas_usuarios.id_oas_usuario='$id_oas_usuario' ";
 
-         $result=@mysql_query($sql);
+         $result=@$mysqli->query($sql);
 			 
-         $num=mysql_numrows($result);
+         $num=$result->num_rows;
          if ($num>0)
          {
-		   $SYSusuario_nombre            = mysql_result($result,0,'persona_nombre');
-		   $SYSusuario_estado            = mysql_result($result,0,'SYSusuario_estado');
-		   $SYSusuario_organismo_id      = mysql_result($result,0,'organismo_id');
-		   $SYSusuario_organismo         = mysql_result($result,0,'organismo');
-		   $SYSusuario_organismo_area_id = mysql_result($result,0,'organismo_area_id');
-		   $SYSusuario_organismo_area    = mysql_result($result,0,'organismo_area');
-		   $SYSusuario_organismo_area_mesa_entrada = mysql_result($result,0,'organismo_area_mesa_entrada');
-		   $SYSusuario_oas_id = mysql_result($result,0,'id_oas_usuario');
-		   //$SYSusuario_ = mysql_result($result,0,);
+         	$aux = $result->fetch_array();
+         	
+		   $SYSusuario_nombre            = $aux['persona_nombre'];
+		   $SYSusuario_estado            = $aux['SYSusuario_estado'];
+		   $SYSusuario_organismo_id      = $aux['organismo_id'];
+		   $SYSusuario_organismo         = $aux['organismo'];
+		   $SYSusuario_organismo_area_id = $aux['organismo_area_id'];
+		   $SYSusuario_organismo_area    = $aux['organismo_area'];
+		   $SYSusuario_organismo_area_mesa_entrada = $aux['organismo_area_mesa_entrada'];
+		   $SYSusuario_oas_id = $aux['id_oas_usuario'];
+		   //$SYSusuario_ = $aux[];
 		   $SYSsistemas_perfiles_usuario[0]='';  
 		   if ($SYSusuario_estado==1)
 		   {
                $_acceso='SI';
                $_login ='NO';
 			   
-               // Verifico si el usuario está autorizado a utilizar el sistema.
+               // Verifico si el usuario estï¿½ autorizado a utilizar el sistema.
 			   if (empty($SYSsistema_id))
 			   {
                   $_acceso='NO';
                   $_login ='NO';
-				  $_mensaje='¡ ERROR DE SISTEMA: SYSsistema_id vacío !';
+				  $_mensaje='ï¿½ ERROR DE SISTEMA: SYSsistema_id vacï¿½o !';
    				}
 				else
 				{
-				  // Veo en tabla _sistemas_ususarios si está autorizado el usuario
+				  // Veo en tabla _sistemas_ususarios si estï¿½ autorizado el usuario
                   $sql="SELECT *  ";
 				  $sql.="FROM $salud._sistemas_usuarios ";
 				  $sql.="INNER JOIN $salud.sistemas_perfiles_usuarios_oas USING(id_sistema_usuario) ";
 				  $sql.="WHERE $salud.sistemas_perfiles_usuarios_oas.id_oas_usuario='$id_oas_usuario' ";
 				  $sql.="AND $salud._sistemas_usuarios.sistema_id='$SYSsistema_id' ";
 				        
-				  $result = mysql_query($sql);
-				  $nr = mysql_num_rows($result);
+				  $result = $mysqli->query($sql);
+				  $nr = $result->num_rows;
 				  if ($nr>0)
 				  {
 					 $_acceso='SI';
 					 $_login ='NO';
 					 $SYSsistemas_perfiles_usuario = array();
-					 while ($row = mysql_fetch_array($result))
+					 while ($row = $result->fetch_array())
 					 {
 					   	$SYSsistemas_perfiles_usuario[]=$row["perfil_id"];
 					 }
@@ -132,7 +136,7 @@ else
 					else
 				    {
 		              $_acceso='NO';
-			          $_mensaje.='¡ El usuario '.$SYSusuario.' NO ESTA AUTORIZADO a utilizar el sistema '.$SYSsistema_id.' !';
+			          $_mensaje.='ï¿½ El usuario '.$SYSusuario.' NO ESTA AUTORIZADO a utilizar el sistema '.$SYSsistema_id.' !';
 			          $_login='SI';
 				    }
 				}
@@ -140,14 +144,14 @@ else
 			else
 		  	{
            		$_acceso='NO';
-           		$_mensaje='¡ El usuario '.$SYSusuario.' SE encuentra deshabilitado !';
+           		$_mensaje='ï¿½ El usuario '.$SYSusuario.' SE encuentra deshabilitado !';
            		$_login ='NO';
 		  	}
 		}
 		else
 		{
 		    $_acceso='NO';
-		    $_mensaje.='¡ El usuario '.$SYSusuario.' NO ESTA AUTORIZADO a utilizar el sistema '.$SYSsistema_id.' !';
+		    $_mensaje.='ï¿½ El usuario '.$SYSusuario.' NO ESTA AUTORIZADO a utilizar el sistema '.$SYSsistema_id.' !';
 		    $_login='SI';
 		}
 	}
@@ -159,7 +163,7 @@ if ($_acceso=='SI')
 	 $_fechaactual = date("d/m/Y");
 	 $_horaactual  = date("H:i:s");
      $SYSsesiondetalle.=$SYSpatharchivo.'<br>';
-	 mysql_query ("UPDATE $salud._sesiones SET 
+	 $mysqli->query ("UPDATE $salud._sesiones SET 
 	        SYSsesiondetalle='$SYSsesiondetalle',
 			SYSsesionfecha_ultimo='$_fechaactual',
 			SYSsesionhora_ultimo='$_horaactual'

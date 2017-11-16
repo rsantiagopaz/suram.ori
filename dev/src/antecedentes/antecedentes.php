@@ -11,9 +11,9 @@ switch ($_REQUEST['rutina'])
 		
 		$query = "SELECT id_persona FROM $suram.ingresos INNER JOIN $suram.ingresos_movimientos im USING(id_ingreso) ";
 		$query.="WHERE im.id_ingreso_movimiento='".$xml_Antecedente["id_ingreso_movimiento"]."' ";
-		$result = mysql_query($query);
+		$result = $mysqli->query($query);
 		
-		$row = mysql_fetch_array($result);
+		$row = $result->fetch_array();
 		
 		$id_persona = $row['id_persona'];	
 		

@@ -14,7 +14,7 @@ switch ($_REQUEST['rutina'])
 		$sql.= "AND activo='1' ";
 		$sql.= "ORDER BY descrip ";
 		
-		$SELECT = mysql_query($sql);
+		$SELECT = $mysqli->query($sql);
 		toXML($xml, $sql, "medicamento");
 		header('Content-Type: text/xml');
 		echo $xml->asXML();

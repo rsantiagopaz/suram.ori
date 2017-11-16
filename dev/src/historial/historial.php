@@ -22,11 +22,11 @@ switch ($_REQUEST['rutina'])
 			$sql.="WHERE id_persona='$id_persona' ";
 			$sql.="ORDER BY fecha_consulta_ingreso DESC";
 						
-  			$result = mysql_query($sql);
+  			$result = $mysqli->query($sql);
   			
   			$nodo=$xml->addChild("ingresos2");
   			
-            while($row = mysql_fetch_array($result))
+            while($row = $result->fetch_array())
            	{
            		$id_ingreso = $row['id_ingreso'];
            		
@@ -49,9 +49,9 @@ switch ($_REQUEST['rutina'])
 				$sql.="WHERE id_ingreso='$id_ingreso' ";
 				$sql.="ORDER BY fecha_movimiento_ingreso";
 				
-				$result2 = mysql_query($sql);
+				$result2 = $mysqli->query($sql);
 				
-				while($row2 = mysql_fetch_array($result2))
+				while($row2 = $result2->fetch_array())
 				{
 					$nodo3=$nodo2->addChild("servicio");				
 					foreach($row2 as $key => $value) {						 

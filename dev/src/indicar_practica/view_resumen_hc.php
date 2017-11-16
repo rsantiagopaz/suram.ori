@@ -60,9 +60,9 @@ class PDF extends PDF_MC_Table
 		$query.="DATE_FORMAT(fecha_consulta_ingreso,'%d/%m/%Y') 'fecha', organismo_area 'establecimiento' ";
 		$query.="FROM ingresos JOIN $salud._organismos_areas USING(organismo_area_id) ";
 		$query.="WHERE id_ingreso='".$_REQUEST['id_ingreso']."'";
-		$result = mysql_query($query);
+		$result = $mysqli->query($query);
 		
-		if ($row = mysql_fetch_array($result)){						
+		if ($row = $result->fetch_array()){						
 			$id_persona = $row['id_persona'];
 			$establecimiento = $row['establecimiento'];
 		
@@ -190,8 +190,8 @@ $sql="SELECT id_ingreso_movimiento ";
 $sql.="FROM ingresos_movimientos ";
 $sql.="INNER JOIN ingresos USING(id_ingreso) ";
 $sql.="WHERE id_ingreso='$id_ingreso' ";	
-$row = mysql_query($sql);
-if ($rs = mysql_fetch_array($row)){
+$row = $mysqli->query($sql);
+if ($rs = $row->fetch_array()){
 	$id_ingreso_movimiento = $rs['id_ingreso_movimiento'];		
 	
 	$sql="SELECT IF (i.embarazo_fechaterminacion IS NULL,'00/00/0000',DATE_FORMAT(i.embarazo_fechaterminacion,'%d/%m/%Y')) 'embarazo_fechaterminacion', ";
@@ -250,13 +250,13 @@ $sql.="FROM ingresos JOIN $salud._organismos_areas USING(organismo_area_id) ";
 $sql.="WHERE id_persona='$pdf->id_persona' AND id_ingreso <> '".$_REQUEST['id_ingreso']."' ";
 $sql.="ORDER BY fecha_consulta_ingreso DESC";
 
-$result = mysql_query($sql);
+$result = $mysqli->query($sql);
 
-if (mysql_num_rows($result) > 0) {
+if ($result->num_rows > 0) {
 	$pdf->SetFont('','B');
 	$pdf->Cell(0,6,'INGRESOS PREVIOS',0,1,'C');
 	
-	while ($row = mysql_fetch_array($result)) {	
+	while ($row = $result->fetch_array()) {	
 		$pdf->SetWidths(array(30,35));
 		$pdf->SetFont('','B');
 		$pdf->Row(array('Establecimiento',utf8_decode($row['establecimiento'])));
@@ -274,9 +274,9 @@ if (mysql_num_rows($result) > 0) {
 		$sql.="WHERE id_ingreso='".$row['id_ingreso']."' ";
 		$sql.="ORDER BY fecha_movimiento_ingreso";
 		
-		$result2 = mysql_query($sql);
+		$result2 = $mysqli->query($sql);
 					
-		while($row2 = mysql_fetch_array($result2)) {
+		while($row2 = $result2->fetch_array()) {
 			$pdf->SetWidths(array(30,45,45,30,30));
 			$pdf->Row(array('','Servicio: ' . $row2['servicio'],'Diagnostico Principal: ' . $row2['diagnostico'],
 							'Fecha Ingreso: ' . $row2['fecha_movimiento_ingreso'],'Fecha Egreso: ' . $row2['fecha_egreso']));

@@ -49,9 +49,9 @@ switch ($_REQUEST['rutina'])
 		
 		$sql="SELECT count(id_vademecum) 'cc' FROM prescripciones WHERE id_vademecum ='".$xml_Medicamento["id_vademecum"]."'";
 		
-		$result = mysql_query($sql);
+		$result = $mysqli->query($sql);
 		
-		$row = mysql_fetch_array($result);
+		$row = $result->fetch_array();
 		
 		if ($row['cc'] == 0) {
 			$sql="DELETE FROM vademecum ";
@@ -80,7 +80,7 @@ switch ($_REQUEST['rutina'])
 		$sql.= "AND activo = '1' ";
 		$sql.= "ORDER BY monodroga ";
 		
-		$SELECT = mysql_query($sql);
+		$SELECT = $mysqli->query($sql);
 		toXML($xml, $sql, "vademecum");
 		header('Content-Type: text/xml');
 		echo $xml->asXML();

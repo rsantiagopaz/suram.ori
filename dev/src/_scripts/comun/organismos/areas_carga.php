@@ -38,20 +38,20 @@ $_variable_organismo_area    = $_REQUEST["_variable_organismo_area"];
 
 
 // Lista las areas del organismo organismo_id y que respondan a la consulta _area_a_buscar
-$result=mysql_query("SELECT * FROM _organismos_areas  
+$result=$mysqli->query("SELECT * FROM _organismos_areas  
                              WHERE organismo_id='$_organismo_id' 
 						     ORDER BY organismo_area		   
 							  "); 
-$total=mysql_numrows($result);
+$total=$result->num_rows;
 
 
-if (mysql_errno()>0)
+if ($mysqli->errno>0)
  {
-  print '<br>Error: '.mysql_errno().": ".mysql_error()."<BR><BR>";
+  print '<br>Error: '.$mysqli->errno.": ".$mysqli->error."<BR><BR>";
  }
 else
  {
-  if ($row=mysql_fetch_array($result))
+  if ($row=$result->fetch_array())
    {
 
     //$_variable_organismo_area_id="parent.document.f1.organismo_area_id";
@@ -86,7 +86,7 @@ else
 
 	  
     }
-    while ($row=mysql_fetch_array($result));
+    while ($row=$result->fetch_array());
 
     print "</script>"; 
 	print "Contador=$contador";

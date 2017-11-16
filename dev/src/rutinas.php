@@ -32,9 +32,9 @@ CREATE VIEW suram._usuarios AS SELECT * FROM salud1._usuarios;
 foreach ($_REQUEST as $key => $value)
 {
  	if(get_magic_quotes_gpc()) {
-    	${$key} = mysql_real_escape_string(stripslashes($value));
+    	${$key} = $GLOBALS["mysqli"]->real_escape_string(stripslashes($value));
     } else {
-        ${$key} = mysql_real_escape_string($value);
+        ${$key} = $GLOBALS["mysqli"]->real_escape_string($value);
     }
 }
 
@@ -48,18 +48,18 @@ function loadXML($data) {
 
 function toXML(&$xml, $sql , $tag = "row") {
 
-	$paramet = @mysql_query($sql);
+	$paramet = @$GLOBALS["mysqli"]->query($sql);
 	$nodo = null;
-	if (mysql_insert_id()){
-		$nodo=$xml->addChild("insert_id", mysql_insert_id());
+	if ($GLOBALS["mysqli"]->insert_id){
+		$nodo=$xml->addChild("insert_id", $GLOBALS["mysqli"]->insert_id);
 	}
-	if (mysql_errno()>0) {
-	 	$error="Error devuelto por la Base de Datos: ".mysql_errno()." ".mysql_error()."\n";
+	if ($GLOBALS["mysqli"]->errno>0) {
+	 	$error="Error devuelto por la Base de Datos: ".$GLOBALS["mysqli"]->errno." ".$GLOBALS["mysqli"]->error."\n";
 	 	$nodo=$xml->addChild("error", $error);
 	}
 	else{
-		if (is_resource($paramet)) {
-			while ($row = mysql_fetch_array($paramet)) {
+		if (is_a($paramet, "MySQLi_Result")) {
+			while ($row = $paramet->fetch_array()) {
 				$nodo=$xml->addChild($tag);	
 				foreach($row as $key => $value) {
 					if (!is_numeric($key)) $nodo->addAttribute($key, $value);
@@ -93,11 +93,11 @@ function toXML_mio(&$xml, $paramet , $tag = "row") {
 	if (is_string($paramet)) {
 		$cadena = strtoupper(substr(trim($paramet), 0, 6));
 		if ($cadena=="INSERT" || $cadena=="SELECT") {
-			$paramet = @mysql_query($paramet);
-			if (mysql_errno() > 0) {
-				$nodo = toXML_mio($xml, "<error>" . "Error devuelto por la Base de Datos: " . mysql_errno() . " " . mysql_error() . "\n" . "</error>");
+			$paramet = @$GLOBALS["mysqli"]->query($paramet);
+			if ($GLOBALS["mysqli"]->errno > 0) {
+				$nodo = toXML_mio($xml, "<error>" . "Error devuelto por la Base de Datos: " . $GLOBALS["mysqli"]->errno . " " . $GLOBALS["mysqli"]->error . "\n" . "</error>");
 			} else if ($cadena=="INSERT"){ 
-				$nodo=$xml->addChild("insert_id", mysql_insert_id());
+				$nodo=$xml->addChild("insert_id", $GLOBALS["mysqli"]->insert_id);
 			} else {
 				$nodo = toXML_mio($xml, $paramet, $tag);
 			}
@@ -105,8 +105,8 @@ function toXML_mio(&$xml, $paramet , $tag = "row") {
 			$nodo=new SimpleXMLElement($paramet);
 			$nodo=$xml->addChild($nodo->getName(), $nodo[0]);
 		}
-	} else if (is_resource($paramet)) {
-		while ($row = mysql_fetch_array($paramet)) {
+	} else if (is_a($paramet, "MySQLi_Result")) {
+		while ($row = $paramet->fetch_array()) {
 			$nodo=$xml->addChild($tag);	
 			foreach($row as $key => $value) {
 				if (!is_numeric($key)) $nodo->addAttribute($key, $value);

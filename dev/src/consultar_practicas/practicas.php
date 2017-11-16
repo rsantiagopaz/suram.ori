@@ -45,9 +45,9 @@ switch ($_REQUEST['rutina'])
 		
 		$sql="SELECT count(id_practica) 'cc' FROM solicitudes WHERE id_practica ='".$xml_Practica["id_practica"]."'";
 		
-		$result = mysql_query($sql);
+		$result = $mysqli->query($sql);
 		
-		$row = mysql_fetch_array($result);
+		$row = $result->fetch_array();
 		
 		if ($row['cc'] == 0) {
 			$sql="DELETE FROM nomenclador_practicas ";
@@ -76,7 +76,7 @@ switch ($_REQUEST['rutina'])
 		$sql.= "AND activo='1' ";
 		$sql.= "ORDER BY procedimiento ";
 		
-		$SELECT = mysql_query($sql);
+		$SELECT = $mysqli->query($sql);
 		toXML($xml, $sql, "practica");
 		header('Content-Type: text/xml');
 		echo $xml->asXML();

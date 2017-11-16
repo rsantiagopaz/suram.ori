@@ -12,7 +12,7 @@ switch ($_REQUEST['rutina'])
 		$sql.= "WHERE CONCAT(nombre,' - dosis ',denominacion) LIKE '%$vacuna%' ";
 		$sql.= "ORDER BY nombre";
 		
-		$SELECT = mysql_query($sql);
+		$SELECT = $mysqli->query($sql);
 		toXML($xml, $sql, "vacuna");
 		header('Content-Type: text/xml');
 		echo $xml->asXML();

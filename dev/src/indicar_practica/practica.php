@@ -12,7 +12,7 @@ switch ($_REQUEST['rutina'])
 		$sql.= "AND activo='1' ";
 		$sql.= "ORDER BY procedimiento ";
 		
-		$SELECT = mysql_query($sql);
+		$SELECT = $mysqli->query($sql);
 		toXML($xml, $sql, "practica");
 		header('Content-Type: text/xml');
 		echo $xml->asXML();

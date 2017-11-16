@@ -36,34 +36,34 @@ include('../config.php');
 $mensaje='';
 
 if (empty($SYSusuario))
- $mensaje.='<br>No ingresó su nombre de usuario.';
+ $mensaje.='<br>No ingresï¿½ su nombre de usuario.';
 
 if (empty($SYSpassword))
- $mensaje.='<br>No ingresó su password.';
+ $mensaje.='<br>No ingresï¿½ su password.';
 
-// Verifico si el suario es válido
+// Verifico si el suario es vï¿½lido
 if (!empty($SYSusuario) AND !empty($SYSpassword))
  {
   // Modificado el 3/5/2007 para uso de MD5
-  $result=mysql_query("SELECT * FROM _usuarios WHERE SYSusuario = BINARY '$SYSusuario' AND SYSpassword = MD5('$SYSpassword')");
-  $num=mysql_numrows($result);
+  $result=$mysqli->query("SELECT * FROM _usuarios WHERE SYSusuario = BINARY '$SYSusuario' AND SYSpassword = MD5('$SYSpassword')");
+  $num=$result->num_rows;
   if ($num==1)
 	   {
 	    if ($SYSpassword_nuevo1==$SYSpassword_nuevo2)
 		  {
 	        if (strlen($SYSpassword_nuevo1)>20 OR strlen($SYSpassword_nuevo1)<5)
 			  {
-			   $mensaje.='<br>La contraseña nueva no debe exceder los 20 caracteres ni debe ser menor que 5 caracteres.';   
+			   $mensaje.='<br>La contraseï¿½a nueva no debe exceder los 20 caracteres ni debe ser menor que 5 caracteres.';   
 			  }
 			 else
 			  {
-			   $CaracteresNoValidos="&/*!¡¿?+[]()%·$\=@'".'"';
-               // VERIFICO CARACTERES NO VALIDOS EN LA CONTRASEÑA
+			   $CaracteresNoValidos="&/*!ï¿½ï¿½?+[]()%ï¿½$\=@'".'"';
+               // VERIFICO CARACTERES NO VALIDOS EN LA CONTRASEï¿½A
                for ($i = 0; $i < (strlen($CaracteresNoValidos)); $i++)
                 {
-	             // Busco en el campo a validar si existe un caracter no válido
+	             // Busco en el campo a validar si existe un caracter no vï¿½lido
                  if(strstr($SYSpassword_nuevo1,$CaracteresNoValidos[$i]))
-                     $mensaje.='<br>No se permitre el caracter " '.$CaracteresNoValidos[$i].' " en la contraseña.';
+                     $mensaje.='<br>No se permitre el caracter " '.$CaracteresNoValidos[$i].' " en la contraseï¿½a.';
                  }
               // Fin VERIFICO CARACTERES NO VALIDOS 
    
@@ -72,12 +72,12 @@ if (!empty($SYSusuario) AND !empty($SYSpassword))
 		  }
 		 else
 		  {
-		   $mensaje.='<br>No hay coincidencia en la confirmación de la contraseña nueva.';
+		   $mensaje.='<br>No hay coincidencia en la confirmaciï¿½n de la contraseï¿½a nueva.';
 		  }  	
 	   }
 	 else
 	   {
-		 $mensaje.='Sus datos de acceso no son válidos. Verifique haber ingresado bien su nombre de usuario y contraseña.';
+		 $mensaje.='Sus datos de acceso no son vï¿½lidos. Verifique haber ingresado bien su nombre de usuario y contraseï¿½a.';
 	   }
  }
 
@@ -86,14 +86,14 @@ if (!empty($SYSusuario) AND !empty($SYSpassword))
   {
 		print '<center>';
 		print '<font face="arial" size="2" color="#000080">';
-		print '<B>¡ ERROR !</B>';
+		print '<B>ï¿½ ERROR !</B>';
 		print '</font>';
 		print '</center>';
 		print '<br>';
 		print '<font face="arial" size="2" color="#000080">';
 		print $mensaje;
 		print '<br><br>';
-		print '<a href="javascript:history.back();">De un click aquí para Reintentar...</a>';
+		print '<a href="javascript:history.back();">De un click aquï¿½ para Reintentar...</a>';
 		print '</font>';
 		print '<br><br><br>';
 
@@ -101,30 +101,30 @@ if (!empty($SYSusuario) AND !empty($SYSpassword))
  else
   {
 /* Antes del 3/5/2007
-	mysql_query ("UPDATE _usuarios SET 
+	$mysqli->query ("UPDATE _usuarios SET 
 	        SYSpassword='$SYSpassword_nuevo1'
            WHERE SYSusuario='$SYSusuario'"); 
 */
  // Desde el 3/5/2007
-	mysql_query ("UPDATE _usuarios SET 
+	$mysqli->query ("UPDATE _usuarios SET 
 	        SYSpassword=MD5('$SYSpassword_nuevo1') 
            WHERE SYSusuario= BINARY '$SYSusuario'"); 
  // ---------------------------------------------		   
-   if (mysql_errno()>0)	
+   if ($mysqli->errno>0)	
     {
-     print '<br>Error: '.mysql_errno().": ".mysql_error()."<BR><BR>";	 
+     print '<br>Error: '.$mysqli->errno.": ".$mysqli->error."<BR><BR>";	 
 	} 
     else     
     {
      print '<center><br><br>';
 	 print '<font face="arial" size="2" color="#000080">';
-     print '<b>¡ CAMBIO DE CONTRASEÑA EXITOSO !</b>';
+     print '<b>ï¿½ CAMBIO DE CONTRASEï¿½A EXITOSO !</b>';
 	 print '</font>';
 	 print '</center>';
 	 print '<br><br><br>';
 	 if (!empty($SYSpatharchivo))
 	  {
-	   print '<a href="'.$SYSpatharchivo.'"><font face="arial" size="2">De un click aquí para continuar !</font></a>';
+	   print '<a href="'.$SYSpatharchivo.'"><font face="arial" size="2">De un click aquï¿½ para continuar !</font></a>';
 	   print '<br><br>';
 	  } 
 	}

@@ -84,9 +84,9 @@ toXML($xmlPracticas, $sql, "practica");
 				
 $query = "SELECT id_persona FROM ingresos INNER JOIN ingresos_movimientos im USING(id_ingreso) ";
 $query.="WHERE im.id_ingreso_movimiento='$id_ingreso_movimiento' ";
-$result = mysql_query($query);
+$result = $mysqli->query($query);
 
-if ($row = mysql_fetch_array($result)){						
+if ($row = $result->fetch_array()){						
 	$id_persona = $row['id_persona'];
 
 	$sql="SELECT persona_id 'id_persona',persona_nombre 'apeynom', CASE p.persona_tipodoc WHEN 'D' THEN 'DNI' WHEN 'C' THEN 'LC' WHEN 'E' THEN 'LE' WHEN 'F' THEN 'CI' END as 'tipo_doc', persona_dni 'nrodoc', IF( persona_sexo = 'M', 'MASCULINO', 'FEMENINO' ) as 'sexo', ";

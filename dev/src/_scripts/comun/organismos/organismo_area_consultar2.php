@@ -51,7 +51,7 @@ function escogeArea()
   <?php
 
 // Lista las areas del organismo organismo_id y que respondan a la consulta _area_a_buscar
-$result=mysql_query("SELECT * FROM _organismos_areas  
+$result=$mysqli->query("SELECT * FROM _organismos_areas  
                                JOIN _organismos
 							     ON _organismos.organismo_id = _organismos_areas.organismo_id                            
                              WHERE _organismos_areas.organismo_id='$organismo_id' 
@@ -59,12 +59,12 @@ $result=mysql_query("SELECT * FROM _organismos_areas
 							       _organismos_areas.organismo_area LIKE '%$_area_a_buscar%'
 						     ORDER BY _organismos_areas.organismo_area		   
 							  "); 
-$total=mysql_numrows($result);
+$total=$result->num_rows;
 
 
-if (mysql_errno()>0)
+if ($mysqli->errno>0)
  {
-  print '<br>Error: '.mysql_errno().": ".mysql_error()."<BR><BR>";
+  print '<br>Error: '.$mysqli->errno.": ".$mysqli->error."<BR><BR>";
  }
 
 
@@ -75,7 +75,7 @@ if ($total>0)
   else
    print '<b>'.$total.'</b> areas';
  print ' con <b>"'.$_area_a_buscar.'"</b></font></center>';
-if ($row=mysql_fetch_array($result) )
+if ($row=$result->fetch_array() )
  {
   print '<center>';
   print '<select name="_organismo_area_id" size="10" onblur="escogeArea();">';
@@ -91,7 +91,7 @@ if ($row=mysql_fetch_array($result) )
 //	print " onselected=alert(_organismo_area_id.value); ";
 	print '>'.$row["organismo_area"].'</option>';
   }
- while ($row=mysql_fetch_array($result));
+ while ($row=$result->fetch_array());
  
  print '</select>';
  print '<script>_organismo_area_id.focus();</script>';
@@ -106,7 +106,7 @@ if ($row=mysql_fetch_array($result) )
  }
  else
  {
-  print '<br><br><center><font face="arial" size="2" color="#FF0000"><b>¡ No se encontraron areas que respondan a la consulta !</b></font></center><br><br>';
+  print '<br><br><center><font face="arial" size="2" color="#FF0000"><b>ï¿½ No se encontraron areas que respondan a la consulta !</b></font></center><br><br>';
   print '<center>';
   print '<input name="Bot&oacute;n" id="botonCerrarVentana" type="button" style="font-family: Arial; font-size: 8 pt; color: #FFFFFF; background-color: #003399" value="Cerrar ventana" onClick="window.close()" >';
   print '<center>';
