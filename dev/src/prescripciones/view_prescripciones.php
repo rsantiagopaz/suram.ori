@@ -25,7 +25,7 @@ class PDF
 		$query.="DATE_FORMAT(fecha_consulta_ingreso,'%d/%m/%Y') 'fecha', organismo_area 'establecimiento' ";
 		$query.="FROM ingresos JOIN $salud._organismos_areas USING(organismo_area_id) ";
 		$query.="WHERE id_ingreso='".$_REQUEST['id_ingreso']."'";
-		$result = $mysqli->query($query);
+		$result = $GLOBALS["mysqli"]->query($query);
 		
 		if ($row = $result->fetch_array()){						
 			$id_persona = $row['id_persona'];
@@ -118,7 +118,7 @@ $sql="SELECT id_ingreso_movimiento ";
 $sql.="FROM ingresos_movimientos ";
 $sql.="INNER JOIN ingresos USING(id_ingreso) ";
 $sql.="WHERE id_ingreso='$id_ingreso' ";
-$row = $mysqli->query($sql);
+$row = $GLOBALS["mysqli"]->query($sql);
 if ($rs = $row->fetch_array()){
 	$id_ingreso_movimiento = $rs['id_ingreso_movimiento'];		
 	

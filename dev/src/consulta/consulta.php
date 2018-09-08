@@ -211,7 +211,8 @@ switch ($_REQUEST['rutina'])
 	    		$sql.="observaciones='".$antecedente["observaciones"]."', ";
 	    		$sql.="accion='".(($antecedente["accion"]=='Quitó') ? 'B' : (($antecedente["accion"]=='Agregó') ? 'A' : 'M'))."', ";
 	    		$sql.="fecha='".YYYYDM($antecedente["fecha"])."', ";
-	    		$sql.="usuario='".($antecedente["usuario"] ? $antecedente["usuario"] : $_SESSION['usuario'])."', ";
+	    		//$sql.="usuario='".($antecedente["usuario"] ? $antecedente["usuario"] : $_SESSION['usuario'])."', ";
+	    		$sql.="usuario='".($antecedente["usuario"] ? $antecedente["usuario"] : $_SESSION['SYSusuario'])."', ";
 	    		$sql.="id_persona='".$xml_datosconsulta->id_persona."' ";
 	    		toXML($xml, $sql, "antecedentes"); 
 			}

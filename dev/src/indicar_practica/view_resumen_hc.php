@@ -60,7 +60,7 @@ class PDF extends PDF_MC_Table
 		$query.="DATE_FORMAT(fecha_consulta_ingreso,'%d/%m/%Y') 'fecha', organismo_area 'establecimiento' ";
 		$query.="FROM ingresos JOIN $salud._organismos_areas USING(organismo_area_id) ";
 		$query.="WHERE id_ingreso='".$_REQUEST['id_ingreso']."'";
-		$result = $mysqli->query($query);
+		$result = $GLOBALS["mysqli"]->query($query);
 		
 		if ($row = $result->fetch_array()){						
 			$id_persona = $row['id_persona'];
@@ -190,7 +190,7 @@ $sql="SELECT id_ingreso_movimiento ";
 $sql.="FROM ingresos_movimientos ";
 $sql.="INNER JOIN ingresos USING(id_ingreso) ";
 $sql.="WHERE id_ingreso='$id_ingreso' ";	
-$row = $mysqli->query($sql);
+$row = $GLOBALS["mysqli"]->query($sql);
 if ($rs = $row->fetch_array()){
 	$id_ingreso_movimiento = $rs['id_ingreso_movimiento'];		
 	
@@ -250,7 +250,7 @@ $sql.="FROM ingresos JOIN $salud._organismos_areas USING(organismo_area_id) ";
 $sql.="WHERE id_persona='$pdf->id_persona' AND id_ingreso <> '".$_REQUEST['id_ingreso']."' ";
 $sql.="ORDER BY fecha_consulta_ingreso DESC";
 
-$result = $mysqli->query($sql);
+$result = $GLOBALS["mysqli"]->query($sql);
 
 if ($result->num_rows > 0) {
 	$pdf->SetFont('','B');
@@ -274,7 +274,7 @@ if ($result->num_rows > 0) {
 		$sql.="WHERE id_ingreso='".$row['id_ingreso']."' ";
 		$sql.="ORDER BY fecha_movimiento_ingreso";
 		
-		$result2 = $mysqli->query($sql);
+		$result2 = $GLOBALS["mysqli"]->query($sql);
 					
 		while($row2 = $result2->fetch_array()) {
 			$pdf->SetWidths(array(30,45,45,30,30));
